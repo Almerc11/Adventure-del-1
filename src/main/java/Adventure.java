@@ -4,17 +4,21 @@ import java.util.Scanner;
 
 public class Adventure {
     Room currentRoom;
+    Room room1 = new Room("Room 1", "");
+    Room room2 = new Room("Room 2", "");
+    Room room3 = new Room("Room 3", "");
+    Room room4 = new Room("Room 4", "");
+    Room room5 = new Room("Room 5", "");
+    Room room6 = new Room("Room 6", "");
+    Room room7 = new Room("Room 7", "");
+    Room room8 = new Room("Room 8", "");
+    Room room9 = new Room("Room 9", "");
 
     public Adventure(){
-        Room room1 = new Room("Room 1", "");
-        Room room2 = new Room("Room 2", "");
-        Room room3 = new Room("Room 3", "");
-        Room room4 = new Room("Room 4", "");
-        Room room5 = new Room("Room 5", "");
-        Room room6 = new Room("Room 6", "");
-        Room room7 = new Room("Room 7", "");
-        Room room8 = new Room("Room 8", "");
-        Room room9 = new Room("Room 9", "");
+    }
+
+    public void goToRoom(){
+        Scanner input = new Scanner(System.in);
         currentRoom = null;
 
         room1.setEast(room2);
@@ -43,10 +47,10 @@ public class Adventure {
 
         room9.setNorth(room6);
         room9.setWest(room8);
-    }
 
-    public void goToRoom(){
+        currentRoom = room1;
 
+        System.out.println("You are currently standing in:" + currentRoom.getName());
     }
 }
 
