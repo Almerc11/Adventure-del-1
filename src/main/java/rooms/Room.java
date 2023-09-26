@@ -1,17 +1,15 @@
 package rooms;
 
 public class Room {
-    private String description;
-    private String name;
+    private final String desription;
+    private final String name;
     private Room east;
     private Room west;
     private Room south;
     private Room north;
 
-
-
-    public Room(String name, String description) {
-        this.description = description;
+    public Room(String name, String desription) {
+        this.desription = desription;
         this.name = name;
         this.east = null;
         this.west = null;
@@ -22,8 +20,8 @@ public class Room {
 
     }
 
-    public String getDescription() {
-        return description;
+    public String getDesription() {
+        return desription;
     }
 
     public String getName() {
@@ -46,4 +44,17 @@ public class Room {
     public void setNorth(Room north){
         this.north = north;
     }
+    public Room getNorth(){
+        return north;
+    }
+    public Room getSouth(){
+        return south;
+    }
+    public Room getEast(){
+        return east;
+    }
+    public Room getWest(){
+        return west;
+    }
+
 }
