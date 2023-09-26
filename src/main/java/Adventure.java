@@ -2,16 +2,16 @@ import rooms.Room;
 
 
 public class Adventure {
-    Room room1;
-    Room room2;
-    Room room3;
-    Room room4;
-    Room room5;
-    Room room6;
-    Room room7;
-    Room room8;
-    Room room9;
-    Room currentRoom;
+    private final Room room1;
+    private final Room room2;
+    private final Room room3;
+    private final Room room4;
+    private final Room room5;
+    private final Room room6;
+    private final Room room7;
+    private final Room room8;
+    private final Room room9;
+    private Room currentRoom;
 
     public Adventure() {
         room1 = new Room("Room 1", "A room with no distinct features, except for two doors.");
