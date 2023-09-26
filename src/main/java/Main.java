@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        Adventure adventure = new Adventure();
-        adventure.goToRoom();
+       Adventure ad = new Adventure();
+       ad.play();
     }
 }
