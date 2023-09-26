@@ -3,7 +3,8 @@ import rooms.Room;
 import java.util.Scanner;
 
 public class Adventure {
-    Room currentRoom;
+
+    private Room currentRoom;
 
     public Adventure(){
         Room room1 = new Room("Room 1", "");
@@ -43,6 +44,8 @@ public class Adventure {
 
         room9.setNorth(room6);
         room9.setWest(room8);
+
+        currentRoom = room1;
     }
 
     public void goToRoom(){
