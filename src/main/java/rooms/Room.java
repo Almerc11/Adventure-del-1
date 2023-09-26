@@ -8,8 +8,6 @@ public class Room {
     private Room south;
     private Room north;
 
-
-
     public Room(String name, String desription) {
         this.desription = desription;
         this.name = name;
