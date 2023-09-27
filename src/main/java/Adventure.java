@@ -1,6 +1,3 @@
-import rooms.Room;
-
-
 public class Adventure {
 
     public Adventure() {
@@ -16,7 +13,6 @@ public class Adventure {
             if (player.getCurrentRoom() == map.getRoom5()) {
                 UI.giveEndMessage(player.getCurrentRoom());
                 gameIsRunning = false;
-                break;
             } else {
                 UI.giveNormalStartMessage(player.getCurrentRoom());
             }
