@@ -1,27 +1,27 @@
 package rooms;
 
 public class Room {
-    private final String desription;
+    private final String description;
     private final String name;
     private Room east;
     private Room west;
     private Room south;
     private Room north;
 
-    public Room(String name, String desription) {
-        this.desription = desription;
+
+
+    public Room(String name, String description) {
+        this.description = description;
         this.name = name;
         this.east = null;
         this.west = null;
         this.north = null;
         this.south = null;
 
-
-
     }
 
-    public String getDesription() {
-        return desription;
+    public String getDescription() {
+        return description;
     }
 
     public String getName() {
@@ -34,7 +34,6 @@ public class Room {
 
     public void setWest(Room west){
         this.west = west;
-
     }
 
     public void setSouth(Room south){
