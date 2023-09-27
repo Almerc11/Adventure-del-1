@@ -2,103 +2,28 @@ import rooms.Room;
 
 
 public class Adventure {
-    private final Room room1;
-    private final Room room2;
-    private final Room room3;
-    private final Room room4;
-    private final Room room5;
-    private final Room room6;
-    private final Room room7;
-    private final Room room8;
-    private final Room room9;
-    private Room currentRoom;
 
     public Adventure() {
-        room1 = new Room("Room 1", "A room with no distinct features, except for two doors.");
-        room2 = new Room("Room 2", "A room with a strange looking woman in the middle, black hair. Open, dead eyes looking at the ground. Best not to disturb her. There are two doors next to her");
-        room3 = new Room("Room 3", "A room with a worried looking wolf, it cant find it's pack. It looks to you with worried eyes. There are two doors in this room");
-        room4 = new Room("Room 4", "A room with a floating laughing head. Just the head. There are two doors in this room.");
-        room5 = new Room("Room 5", "A forrest full of bird singing, and a path, taking you forward.");
-        room6 = new Room("Room 6", "A dark room, with a single candle in the middle. The walls show shadows on them. You are not alone. There are two doors in this room.");
-        room7 = new Room("Room 7", "A room full of water, and a little toy boat in the middle. A child must have lost it. There are two doors in this room.");
-        room8 = new Room("Room 8", "A room with a woman, beautifull, black hair, brown eyes. She points you in a direction, there are three rooms in this room.");
-        room9 = new Room("Room 9", "A room a strange looking man, horns, red skin, wide smile with open eyes. He urges you to come to him, there are two doors in this room.");
-
-        room1.setEast(room2);
-        room1.setSouth(room4);
-
-        room2.setWest(room1);
-        room2.setEast(room3);
-
-        room3.setWest(room2);
-        room3.setSouth(room6);
-
-        room4.setNorth(room1);
-        room4.setSouth(room7);
-
-        room5.setSouth(room8);
-
-        room6.setNorth(room3);
-        room6.setSouth(room9);
-
-        room7.setNorth(room4);
-        room7.setEast(room8);
-
-        room8.setNorth(room5);
-        room8.setWest(room7);
-        room8.setEast(room9);
-
-        room9.setNorth(room6);
-        room9.setWest(room8);
     }
 
     public void play(){
         UserInterface UI = new UserInterface();
+        Player player = new Player();
+        Map map = new Map();
         boolean gameIsRunning = true;
 
-        currentRoom = room1;
-
         do {
-            if (currentRoom == room5) {
-                System.out.println(currentRoom.getDesription());
-                System.out.println("Thank you for playing.");
+            if (player.getCurrentRoom() == map.getRoom5()) {
+                UI.giveEndMessage(player.getCurrentRoom());
                 gameIsRunning = false;
                 break;
             } else {
-                System.out.println("You are currently standing in " + currentRoom.getName() + ", " + currentRoom.getDesription());
+                UI.giveNormalStartMessage(player.getCurrentRoom());
             }
 
             String userDirection = UI.setUserDirection();
+            player.changeDirection(userDirection);
 
-            if (userDirection.contains("Go north")) {
-                if (currentRoom.getNorth() != null) {
-                    System.out.println("You choose to go north");
-                    this.currentRoom = currentRoom.getNorth();
-                } else {
-                    System.out.println("You cannot go that way");
-                }
-            } else if (userDirection.contains("Go east")) {
-                if (currentRoom.getEast() != null) {
-                    System.out.println("You choose to go east");
-                    this.currentRoom = currentRoom.getEast();
-                } else {
-                    System.out.println("You cannot go that way");
-                }
-            } else if (userDirection.contains("Go west")) {
-                if (currentRoom.getWest() != null) {
-                    System.out.println("You choose to go west");
-                    this.currentRoom = currentRoom.getWest();
-                } else {
-                    System.out.println("You cannot go that way");
-                }
-            } else if (userDirection.contains("Go south")) {
-                if (currentRoom.getSouth() != null) {
-                    System.out.println("You choose to go south");
-                    this.currentRoom = currentRoom.getSouth();
-                } else {
-                    System.out.println("You cannot go that way");
-                }
-            }
         } while(gameIsRunning);
     }
 }
