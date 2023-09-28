@@ -1,8 +1,8 @@
 package rooms;
 
 public class Room {
-    private String direction;
-    private String name;
+    private final String description;
+    private final String name;
     private Room east;
     private Room west;
     private Room south;
@@ -10,20 +10,18 @@ public class Room {
 
 
 
-    public Room(String name, String direction) {
-        this.direction = direction;
+    public Room(String name, String description) {
+        this.description = description;
         this.name = name;
         this.east = null;
         this.west = null;
         this.north = null;
         this.south = null;
 
-
-
     }
 
-    public String getDirection() {
-        return direction;
+    public String getDescription() {
+        return description;
     }
 
     public String getName() {
@@ -36,7 +34,6 @@ public class Room {
 
     public void setWest(Room west){
         this.west = west;
-
     }
 
     public void setSouth(Room south){
@@ -46,4 +43,17 @@ public class Room {
     public void setNorth(Room north){
         this.north = north;
     }
+    public Room getNorth(){
+        return north;
+    }
+    public Room getSouth(){
+        return south;
+    }
+    public Room getEast(){
+        return east;
+    }
+    public Room getWest(){
+        return west;
+    }
+
 }
