@@ -10,7 +10,6 @@ public class Map {
     private final Room room7;
     private final Room room8;
     private final Room room9;
-    private ArrayList<Room> roomList;
 
     public Map(){
         room1 = new Room("Room 1", "A room with no distinct features, except for two doors.");
@@ -55,17 +54,6 @@ public class Map {
 
         room9.setNorth(room6);
         room9.setWest(room8);
-
-        roomList = new ArrayList<>();
-        roomList.add(room1);
-        roomList.add(room2);
-        roomList.add(room3);
-        roomList.add(room4);
-        roomList.add(room5);
-        roomList.add(room6);
-        roomList.add(room7);
-        roomList.add(room8);
-        roomList.add(room9);
     }
 
     public Room getStartRoom(){
@@ -75,26 +63,4 @@ public class Map {
     public Room getRoom5(){
         return room5;
     }
-    public Room getRoom2(){
-        return room2;
-    }
-    public Room getRoom3(){
-        return room3;
-    }
-    public Room getRoom4(){
-        return room4;
-    }
-    public Room getRoom6(){
-        return room6;
-    }
-    public Room getRoom7(){
-        return room7;
-    }
-    public Room getRoom8(){
-        return room8;
-    }
-    public Room getRoom9(){
-        return room9;
-    }
-
 }

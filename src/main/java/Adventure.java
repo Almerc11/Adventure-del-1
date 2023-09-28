@@ -17,14 +17,10 @@ public class Adventure {
                 UI.giveNormalStartMessage(player.getCurrentRoom());
                 UI.printItemsInRoom(player.getCurrentRoom());
                 UI.userChoices();
-
-                UI.handleUserInput(player, player.getCurrentRoom());
-
-                UI.displayInventory(player.getInventory());
             }
 
-            String userDirection = UI.setUserDirection();
-            player.changeDirection(userDirection);
+            String userChoice = UI.setUserInput().toLowerCase();
+            player.playerChoices(userChoice);
         }
     }
 }

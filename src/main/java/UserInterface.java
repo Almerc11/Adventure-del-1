@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
-    public String setUserDirection(){
+    public String setUserInput(){
         String userDirection;
         Scanner input = new Scanner(System.in);
         userDirection = input.nextLine();
@@ -39,65 +39,83 @@ public class UserInterface {
         System.out.println("You can't go that way");
     }
 
-    public void giveStartMessage(Room room){
-        if(room.getItemList().size() > 1){
-            System.out.println("You see some items on the ground!");
-        } else{
-            System.out.println("You see an item on the ground!");
-        }
-    }
-
-    public void displayInventory(ArrayList<Item> inventory){
-        if(!inventory.isEmpty()){
-            System.out.println("Inventory:");
-            for(Item item : inventory){
-                System.out.println(item.getName() + ": " + item.getDescription());
-            }
-        } else {
-            System.out.println("Your inventory is empty");
-        }
-    }
-
     public void printItemsInRoom(Room room){
         ArrayList<Item> itemList = room.getItemList();
         if(!itemList.isEmpty()){
-            System.out.println("Items in this room");
+            System.out.println("In this room you see:");
             for(Item item : itemList){
-                System.out.println(item.getName() + ": " + item.getDescription());
+                System.out.println("A " + item.getName());
             }
         } else {
             System.out.println("There are no items in this room.");
         }
     }
-
-    public String getUserInput(){
-        Scanner input = new Scanner(System.in);
-        return input.nextLine().toLowerCase();
-    }
-
-    public void handleUserInput(Player player, Room currentRoom){
-        String userInput = getUserInput();
-        if(userInput.contains("take")){
-            takeItem(player, currentRoom);
-        }
-    }
-
-    private void takeItem(Player player, Room currentRoom){
-        ArrayList<Item> roomItem = currentRoom.getItemList();
-        if(!roomItem.isEmpty()){
-            Item itemToTake = roomItem.get(0);
-            player.addItemToInventory(itemToTake);
-            roomItem.remove(itemToTake);
-            System.out.println("You took " + itemToTake.getName() + ".");
+    public void takeItem(ArrayList<Item> listOfItems, Item item){
+        if(!listOfItems.isEmpty()){
+            System.out.println("You took the " + item.getName());
         } else {
             System.out.println("There are no items left to take in this room.");
         }
     }
+    public void showInventoryItems(ArrayList<Item> inventoryItems){
+        System.out.println("Your inventory contains: ");
+        int count = 0;
+        for(Item item : inventoryItems){
+            count++;
+            System.out.println(count + ". " + item.getName() + ", " + item.getDescription());
+        }
+    }
+
+    public void noItemsLeftError(){
+        System.out.println("There are no more items to take in this room!");
+    }
+
+    public void lookForDoors(Room currentRoom){
+        if(currentRoom.getNorth() != null){
+            System.out.println("You see a door to the north..");
+        } else if(currentRoom.getEast() != null){
+            System.out.println("You see a door to the east..");
+        } else if(currentRoom.getSouth() != null){
+            System.out.println("You see a door to the south..");
+        } else if(currentRoom.getWest() != null){
+            System.out.println("You see a door to the west..");
+        } else {
+            System.out.println("You see no doors... You are trapped!");
+        }
+    }
+
+    public int whatItemToRemove(ArrayList<Item> inventory){
+        int count = 0;
+        for(Item item : inventory){
+            count++;
+            System.out.println(count + ". " + item.getName() + ", " + item.getDescription());
+        }
+        Scanner input = new Scanner(System.in);
+        int itemToRemove = input.nextInt();
+        return itemToRemove;
+    }
+
+    public void removeItem(Item item){
+        System.out.println("You removed the item: " + item.getName() + " from your inventory.");
+    }
+
+    public void removeItemError(ArrayList<Item> inventory){
+        if(!inventory.isEmpty()){
+            System.out.println("Your inventory does not contain the item you want to remove..");
+        } else {
+            System.out.println("Your inventory does not contain any items..");
+        }
+    }
+
+    public void help(){
+        System.out.println("You can write the following commands: ");
+        System.out.println("Look: Looks for nearby doors.");
+        System.out.println("Take: Takes an item from the inventory.");
+        System.out.println("Drop: Drops one item from your inventory.");
+        System.out.println("Show: Shows the items currently in your inventory.");
+    }
 
     public void userChoices(){
         System.out.println("What do you do?");
-    }
-
-    public void giveDirections(Room room){
     }
 }
