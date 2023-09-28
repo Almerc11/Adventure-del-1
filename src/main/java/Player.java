@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+
 public class Player {
     Room currentRoom;
+    ArrayList<Item> inventory;
     public Player(Map map){
         this.currentRoom = map.getStartRoom();
+        inventory = new ArrayList<>();
     }
 
     public void changeDirection(String userDirection){
@@ -11,6 +15,8 @@ public class Player {
             if (currentRoom.getNorth() != null) {
                 UI.giveNorthDirectionMessage();
                 this.currentRoom = currentRoom.getNorth();
+            } else {
+                UI.giveErrorDirectionsMessage();
             }
         } else if (userDirection.contains("Go east")) {
             if (currentRoom.getEast() != null) {
@@ -38,13 +44,13 @@ public class Player {
 
     public Room getCurrentRoom(){
         return currentRoom;
-
     }
 
-    public void whatever(){
-        System.out.println(currentRoom.getName());
+    public void addItemToInventory(Item item){
+        inventory.add(item);
     }
-    public void setCurrentRoom(Room room){
-        this.currentRoom = room;
+
+    public ArrayList<Item> getInventory(){
+        return inventory;
     }
 }

@@ -9,7 +9,6 @@ public class Room {
     private Room south;
     private Room north;
     private ArrayList<Item> itemList;
-    private Item item;
 
 
 
@@ -20,9 +19,7 @@ public class Room {
         this.west = null;
         this.north = null;
         this.south = null;
-        this.item = new Item(itemName, itemDescription);
         this.itemList = new ArrayList<>();
-
     }
 
     public String getDescription() {
@@ -60,9 +57,15 @@ public class Room {
     public Room getWest(){
         return west;
     }
-
-    public void addItemToList(){
+    public Item createItem(String name, String description){
+        Item item = new Item(name, description);
+        return item;
+    }
+    public void addItem(Item item){
         itemList.add(item);
+    }
+    public ArrayList<Item> getItemList(){
+        return itemList;
     }
 
 }

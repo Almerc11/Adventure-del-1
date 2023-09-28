@@ -10,14 +10,17 @@ public class Adventure {
         boolean gameIsRunning = true;
 
         while(gameIsRunning) {
-            //player.setCurrentRoom(map.getRoom5());
             if (player.getCurrentRoom() == map.getRoom5()) {
                 UI.giveEndMessage(player.getCurrentRoom());
-                player.whatever();
                 gameIsRunning = false;
             } else {
                 UI.giveNormalStartMessage(player.getCurrentRoom());
-                player.whatever();
+                UI.printItemsInRoom(player.getCurrentRoom());
+                UI.userChoices();
+
+                UI.handleUserInput(player, player.getCurrentRoom());
+
+                UI.displayInventory(player.getInventory());
             }
 
             String userDirection = UI.setUserDirection();
