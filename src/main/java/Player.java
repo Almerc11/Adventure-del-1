@@ -1,10 +1,13 @@
-import rooms.Room;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     Room currentRoom;
+    private List<Item> inventory;
     public Player(){
         Map map = new Map();
         this.currentRoom = map.getStartRoom();
+        this.inventory = new ArrayList<>();
     }
 
     public void changeDirection(String userDirection){
@@ -44,4 +47,19 @@ public class Player {
     public Room getCurrentRoom(){
         return currentRoom;
     }
+    // Tilføj en genstand til spillerens inventar
+    public void addItemToInventory(Item item) {
+        inventory.add(item);
+    }
+
+    // Fjern en genstand fra spillerens inventar
+    public void removeItemFromInventory(Item item) {
+        inventory.remove(item);
+    }
+
+    // Hent spillerens inventar
+    public List<Item> getInventory() {
+        return inventory;
+    }
 }
+

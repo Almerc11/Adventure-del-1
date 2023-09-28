@@ -1,4 +1,4 @@
-import rooms.Room;
+
 
 public class Map {
     private final Room room1;
@@ -21,6 +21,15 @@ public class Map {
         room7 = new Room("Room 7", "A room full of water, and a little toy boat in the middle. A child must have lost it. There are two doors in this room.");
         room8 = new Room("Room 8", "A room with a woman, beautifull, black hair, brown eyes. She points you in a direction, there are three rooms in this room.");
         room9 = new Room("Room 9", "A room a strange looking man, horns, red skin, wide smile with open eyes. He urges you to come to him, there are two doors in this room.");
+
+        room2.addItem(new Item("Food"));
+        room3.addItem(new Item("Lantern"));
+        room4.addItem(new Item("Book"));
+        room5.addItem(new Item("Map"));
+        room6.addItem(new Item("Sword"));
+        room7.addItem(new Item("Coin"));
+        room8.addItem(new Item("Necklace"));
+        room9.addItem(new Item("Crystal Ball"));
 
         room1.setEast(room2);
         room1.setSouth(room4);
