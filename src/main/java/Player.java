@@ -1,9 +1,6 @@
-import rooms.Room;
-
 public class Player {
     Room currentRoom;
-    public Player(){
-        Map map = new Map();
+    public Player(Map map){
         this.currentRoom = map.getStartRoom();
     }
 
@@ -14,8 +11,6 @@ public class Player {
             if (currentRoom.getNorth() != null) {
                 UI.giveNorthDirectionMessage();
                 this.currentRoom = currentRoom.getNorth();
-            } else {
-                UI.giveErrorDirectionsMessage();
             }
         } else if (userDirection.contains("Go east")) {
             if (currentRoom.getEast() != null) {
@@ -43,5 +38,13 @@ public class Player {
 
     public Room getCurrentRoom(){
         return currentRoom;
+
+    }
+
+    public void whatever(){
+        System.out.println(currentRoom.getName());
+    }
+    public void setCurrentRoom(Room room){
+        this.currentRoom = room;
     }
 }

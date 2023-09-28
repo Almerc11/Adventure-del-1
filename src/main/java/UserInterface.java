@@ -1,5 +1,3 @@
-import rooms.Room;
-
 import java.util.Scanner;
 
 public class UserInterface {

@@ -1,5 +1,3 @@
-import rooms.Room;
-
 public class Map {
     private final Room room1;
     private final Room room2;
