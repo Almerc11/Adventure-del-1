@@ -13,6 +13,7 @@ public class Adventure {
             if (player.getCurrentRoom() == map.getRoom5()) {
                 UI.giveEndMessage(player.getCurrentRoom());
                 gameIsRunning = false;
+                break;
             } else {
                 UI.giveNormalStartMessage(player.getCurrentRoom());
                 UI.printItemsInRoom(player.getCurrentRoom());
