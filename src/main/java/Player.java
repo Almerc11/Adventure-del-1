@@ -7,7 +7,6 @@ public class Player {
     public Player(Map map) {
         this.currentRoom = map.getStartRoom();
         inventory = new ArrayList<>();
-
     }
 
     public void playerChoices(String userChoice) {
@@ -104,19 +103,4 @@ public class Player {
             UI.help();
         }
     }
-    // Tilføj en genstand til spillerens inventar
-    public void addItemToInventory(Item item) {
-        inventory.add(item);
-    }
-
-    // Fjern en genstand fra spillerens inventar
-    public void removeItemFromInventory(Item item) {
-        inventory.remove(item);
-    }
-
-    // Hent spillerens inventar
-    public List<Item> getInventory() {
-        return inventory;
-    }
 }
-
