@@ -1,6 +1,6 @@
 public class Item {
-    String name;
-    String description;
+    private String name;
+    private String description;
 
     public Item(String name, String description){
         this.name = name;

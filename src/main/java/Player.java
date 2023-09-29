@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Player {
-    Room currentRoom;
-    ArrayList<Item> inventory;
+    private Room currentRoom;
+    private ArrayList<Item> inventory;
     public Player(Map map){
         this.currentRoom = map.getStartRoom();
         inventory = new ArrayList<>();
