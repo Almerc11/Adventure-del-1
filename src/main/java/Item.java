@@ -1,3 +1,4 @@
+
 public class Item {
     private String name;
     private String description;
@@ -13,5 +14,3 @@ public class Item {
     public String getDescription(){
         return description;
     }
-
-}

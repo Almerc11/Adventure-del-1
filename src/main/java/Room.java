@@ -1,4 +1,5 @@
 import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
 public class Room {
@@ -12,6 +13,7 @@ public class Room {
 
 
 
+
     public Room(String name, String description) {
         this.description = description;
         this.name = name;
@@ -20,6 +22,7 @@ public class Room {
         this.north = null;
         this.south = null;
         this.itemList = new ArrayList<>();
+
     }
 
     public String getDescription() {
