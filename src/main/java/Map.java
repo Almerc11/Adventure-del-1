@@ -1,4 +1,4 @@
-import rooms.Room;
+import java.util.*;
 
 public class Map {
     private final Room room1;
@@ -22,14 +22,29 @@ public class Map {
         room8 = new Room("Room 8", "A room with a woman, beautifull, black hair, brown eyes. She points you in a direction, there are three rooms in this room.");
         room9 = new Room("Room 9", "A room a strange looking man, horns, red skin, wide smile with open eyes. He urges you to come to him, there are two doors in this room.");
 
+        room2.addItem(new Item("Food"));
+        room3.addItem(new Item("Lantern"));
+        room4.addItem(new Item("Book"));
+        room5.addItem(new Item("Map"));
+        room6.addItem(new Item("Sword"));
+        room7.addItem(new Item("Coin"));
+        room8.addItem(new Item("Necklace"));
+        room9.addItem(new Item("Crystal Ball"));
+
         room1.setEast(room2);
         room1.setSouth(room4);
+        room1.addItem(room1.createItem("Crystal", "A crystal that glows red"));
 
         room2.setWest(room1);
         room2.setEast(room3);
+        room2.addItem(room1.createItem("Sword", "A golden sword with diamonds on the shaft"));
+        room2.addItem(room1.createItem("Bread", "A piece of luke warm bread"));
 
         room3.setWest(room2);
         room3.setSouth(room6);
+        room3.addItem(room3.createItem("Torch", "A torch giving light"));
+        room3.addItem(room3.createItem("Key", "A glowing key"));
+        room3.addItem(room3.createItem("A thing", "Just a thing"));
 
         room4.setNorth(room1);
         room4.setSouth(room7);

@@ -1,4 +1,6 @@
-package rooms;
+import java.lang.reflect.Array;
+
+import java.util.ArrayList;
 
 public class Room {
     private final String description;
@@ -7,6 +9,8 @@ public class Room {
     private Room west;
     private Room south;
     private Room north;
+    private ArrayList<Item> itemList;
+
 
 
 
@@ -17,6 +21,7 @@ public class Room {
         this.west = null;
         this.north = null;
         this.south = null;
+        this.itemList = new ArrayList<>();
 
     }
 
@@ -54,6 +59,16 @@ public class Room {
     }
     public Room getWest(){
         return west;
+    }
+    public Item createItem(String name, String description){
+        Item item = new Item(name, description);
+        return item;
+    }
+    public void addItem(Item item){
+        itemList.add(item);
+    }
+    public ArrayList<Item> getItemList(){
+        return itemList;
     }
 
 }
