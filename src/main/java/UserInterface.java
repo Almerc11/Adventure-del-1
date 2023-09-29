@@ -83,7 +83,7 @@ public class UserInterface {
             System.out.println("You see no doors... You are trapped!");
         }
     }
-
+/*
     public int whatItemToRemove(ArrayList<Item> inventory){
         int count = 0;
         for(Item item : inventory){
@@ -98,6 +98,8 @@ public class UserInterface {
     public void removeItem(Item item){
         System.out.println("You removed the item: " + item.getName() + " from your inventory.");
     }
+
+ */
 
     public void removeItemError(ArrayList<Item> inventory){
         if(!inventory.isEmpty()){
