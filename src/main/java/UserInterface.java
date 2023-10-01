@@ -9,8 +9,8 @@ public class UserInterface {
         return userDirection;
     }
 
-    public void giveEndMessage(Room room){
-        System.out.println(room.getDescription());
+    public void giveEndMessage(String roomDescription){
+        System.out.println(roomDescription);
         System.out.println("Thank you for playing.");
     }
 
@@ -46,9 +46,9 @@ public class UserInterface {
     public void noItems(){
         System.out.println("There are no items in this room..");
     }
-    public void takeItem(ArrayList<Item> listOfItems, Item item){
+    public void takeItem(ArrayList<Item> listOfItems, String itemName){
         if(!listOfItems.isEmpty()){
-            System.out.println("You took the " + item.getName());
+            System.out.println("You took the " + itemName);
         } else {
             System.out.println("There are no items left to take in this room.");
         }
@@ -65,20 +65,22 @@ public class UserInterface {
     public void noItemsLeftError(){
         System.out.println("There are no more items to take in this room!");
     }
-
-    public void lookForDoors(Room currentRoom){
-        if(currentRoom.getNorth() != null){
-            System.out.println("You see a door to the north..");
-        } else if(currentRoom.getEast() != null){
-            System.out.println("You see a door to the east..");
-        } else if(currentRoom.getSouth() != null){
-            System.out.println("You see a door to the south..");
-        } else if(currentRoom.getWest() != null){
-            System.out.println("You see a door to the west..");
-        } else {
-            System.out.println("You see no doors... You are trapped!");
-        }
+    public void lookForNorth(){
+        System.out.println("You see a door to the north..");
     }
+    public void lookForSouth(){
+        System.out.println("You see a door to the south..");
+    }
+    public void lookForEast(){
+        System.out.println("You see a door to the east..");
+    }
+    public void lookForWest(){
+        System.out.println("You see a door to the west..");
+    }
+    public void noDoors(){
+        System.out.println("You see no doors... You are trapped!");
+    }
+
 /*
     public int whatItemToRemove(ArrayList<Item> inventory){
         int count = 0;

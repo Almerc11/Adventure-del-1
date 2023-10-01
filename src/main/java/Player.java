@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
-    Adventure adventure;
+    private Adventure adventure;
 
     public Player(Adventure adventure) {
         this.adventure = adventure;
@@ -14,14 +14,13 @@ public class Player {
         this.currentRoom = adventure.getStartRoomFromMap();
     }
 
-    public void playerChoices(String userChoice) {
-        UserInterface UI = new UserInterface();
+    public void playerChoices(Adventure adventure ,String userChoice) {
 
-        playUserDirections(UI, userChoice);
+        playUserDirections(adventure, userChoice);
 
-        playUserInventoryManagement(UI, userChoice);
+        playUserInventoryManagement(adventure, userChoice);
 
-        givePlayerHelp(UI, userChoice);
+        givePlayerHelp(adventure, userChoice);
 
        /* else if(userChoice.contains("drop")){
             int count = 0;
@@ -50,62 +49,62 @@ public class Player {
         inventory.add(item);
     }
 
-    public void playUserDirections(UserInterface UI, String userChoice) {
+    public void playUserDirections(Adventure adventure, String userChoice) {
         if (userChoice.contains("go north")) {
             if (currentRoom.getNorth() != null) {
-                UI.giveNorthDirectionMessage();
+                adventure.giveNorthMessageFromUI();
                 this.currentRoom = currentRoom.getNorth();
             } else {
-                UI.giveErrorDirectionsMessage();
+                adventure.giveErrorMessageFromUI();
             }
         } else if (userChoice.contains("go east")) {
             if (currentRoom.getEast() != null) {
-                UI.giveEastDirectionMessage();
+                adventure.giveEastMessageFromUI();
                 this.currentRoom = currentRoom.getEast();
             } else {
-                UI.giveErrorDirectionsMessage();
+                adventure.giveErrorMessageFromUI();
             }
         } else if (userChoice.contains("go west")) {
             if (currentRoom.getWest() != null) {
-                UI.giveWestDirectionMessage();
+                adventure.giveWestMessageFromUI();
                 this.currentRoom = currentRoom.getWest();
             } else {
-                UI.giveErrorDirectionsMessage();
+                adventure.giveErrorMessageFromUI();
             }
         } else if (userChoice.contains("go south")) {
             if (currentRoom.getSouth() != null) {
-                UI.giveSouthDirectionMessage();
+                adventure.giveSouthMessageFromUI();
                 this.currentRoom = currentRoom.getSouth();
             } else {
-                UI.giveErrorDirectionsMessage();
+                adventure.giveErrorMessageFromUI();
             }
         }
     }
 
-    public void playUserInventoryManagement(UserInterface UI, String userChoice) {
+    public void playUserInventoryManagement(Adventure adventure, String userChoice) {
         if (userChoice.contains("look")) {
             searchForItems();
+            lookForDoors();
         } else if (userChoice.contains("take")) {
-
             if (!currentRoom.getItemList().isEmpty()) {
-                Item item = currentRoom.getItemList().get(0);
-                addItemToInventory(item);
-                UI.takeItem(currentRoom.getItemList(), item);
+                String itemName = currentRoom.getItemList().get(0).getName();
+                addItemToInventory(currentRoom.getItemList().get(0));
+                adventure.giveTakeItemMessageFromUI(currentRoom.getItemList(), itemName);
                 currentRoom.getItemList().remove(0);
             } else {
-                UI.noItemsLeftError();
+                adventure.noItemsInRoomErrorFromUI();
             }
         } else if (userChoice.contains("show")) {
             if (!inventory.isEmpty()) {
-                UI.showInventoryItems(inventory);
+                adventure.showInventoryMessageFromUI(inventory);
             } else {
-                UI.removeItemError(inventory);
+                adventure.ItemErrorFromUI(inventory);
             }
         }
     }
-    public void givePlayerHelp(UserInterface UI, String userChoice){
+    public void givePlayerHelp(Adventure adventure, String userChoice){
         if (userChoice.contains("help")) {
-            UI.help();
+            adventure.helpFromUI();
         }
     }
     public String getStartRoomName(){
@@ -133,5 +132,19 @@ public class Player {
              return "no items found";
         }
         return "";
+    }
+    public void lookForDoors(){
+        if(currentRoom.getNorth() != null){
+            adventure.getLookForNorthFromUI();
+        }
+        if(currentRoom.getSouth() != null){
+            adventure.getLookForSouthFromUI();
+        }
+        if(currentRoom.getEast() != null){
+            adventure.getLookForEastFromUI();
+        }
+        if(currentRoom.getWest() != null){
+            adventure.getLookForWestFromUI();
+        }
     }
 }
