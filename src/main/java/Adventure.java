@@ -19,9 +19,11 @@ public class Adventure {
                 UI.giveEndMessage(player.getCurrentRoom().getDescription());
                 gameIsRunning = false;
                 break;
+            } else if(player.getExitGame() == true){
+                gameIsRunning = false;
             } else {
                 UI.giveNormalStartMessage(player.getStartRoomName(), player.getStartRoomDescription());
-                UI.printItemsInRoom(player.searchForItemsInCurrentRoom());
+                player.searchForItemsInCurrentRoom();
                 UI.userChoices();
                 String userChoice = UI.setUserInput().toLowerCase();
                 player.playerChoices(this, userChoice);
@@ -84,6 +86,20 @@ public class Adventure {
     }
     public void noItemsInRoomErrorFromUI(){
         UI.noItemsLeftError();
+    }
+    public void giveShowItemsFromUI(String itemName, String itemDescription){
+        UI.showItems(itemName, itemDescription);
+    }
+    public String itemToBeRemovedMessageFromUI(){
+        return UI.userChoiceToRemoveItem();
+    }
+
+    public void printRemovableItemListFromUI(){
+        UI.userRemoveItemChoice();
+    }
+
+    public void giveRemovedItemMessageFromUI(String itemName){
+        UI.removeItem(itemName);
     }
 
 

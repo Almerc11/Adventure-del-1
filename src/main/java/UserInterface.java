@@ -77,27 +77,23 @@ public class UserInterface {
     public void lookForWest(){
         System.out.println("You see a door to the west..");
     }
-    public void noDoors(){
-        System.out.println("You see no doors... You are trapped!");
+
+    public void removeItem(String itemName){
+        System.out.println("You removed the item: " + itemName + " from your inventory.");
+    }
+    public void userRemoveItemChoice(){
+        System.out.println("What item would you like to remove?");
     }
 
-/*
-    public int whatItemToRemove(ArrayList<Item> inventory){
-        int count = 0;
-        for(Item item : inventory){
-            count++;
-            System.out.println(count + ". " + item.getName() + ", " + item.getDescription());
-        }
+    public String userChoiceToRemoveItem(){
         Scanner input = new Scanner(System.in);
-        int itemToRemove = input.nextInt();
-        return itemToRemove;
+        String itemToBeRemoved = input.nextLine();
+        return itemToBeRemoved;
     }
 
-    public void removeItem(Item item){
-        System.out.println("You removed the item: " + item.getName() + " from your inventory.");
+    public void showItems(String itemName, String itemDescription){
+        System.out.println(itemName + ", " + itemDescription);
     }
-
- */
 
     public void removeItemError(ArrayList<Item> inventory){
         if(!inventory.isEmpty()){
@@ -113,6 +109,7 @@ public class UserInterface {
         System.out.println("Take: Takes an item from the inventory.");
         System.out.println("Drop: Drops one item from your inventory.");
         System.out.println("Show: Shows the items currently in your inventory.");
+        System.out.println("Exit: Closes the game.");
     }
 
     public void userChoices(){

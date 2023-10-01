@@ -5,6 +5,8 @@ public class Player {
     private ArrayList<Item> inventory;
     private Adventure adventure;
 
+    private boolean exitGame;
+
     public Player(Adventure adventure) {
         this.adventure = adventure;
         this.inventory = new ArrayList<>();
@@ -20,33 +22,57 @@ public class Player {
 
         playUserInventoryManagement(adventure, userChoice);
 
+        removeItemFromInventory(userChoice, adventure);
+
         givePlayerHelp(adventure, userChoice);
 
-       /* else if(userChoice.contains("drop")){
-            int count = 0;
-            for(Item item : inventory) {
-                count++;
-                int playerChoice = UI.whatItemToRemove(inventory);
-                if (inventory.get(count) == inventory.get(playerChoice)) {
-                    Item itemAddedBackInRoom = inventory.get(playerChoice);
-                    UI.removeItem(inventory.get(count));
-                    inventory.remove(count);
-                    currentRoom.getItemList().add(itemAddedBackInRoom);
-                } else if (inventory.get(count) != inventory.get(playerChoice)) {
-                    UI.removeItemError();
-                } else if (inventory.isEmpty()) {
-                    UI.noItemsLeftError();
-                }
-            }
-        } */
+        setExitGame(userChoice);
     }
 
     public Room getCurrentRoom() {
         return currentRoom;
     }
+    public void setExitGame(String userChoice){
+        this.exitGame = false;
+        if(userChoice.contains("exit")){
+            exitGame = true;
+        }
+    }
+
+    public boolean getExitGame(){
+        return exitGame;
+    }
+
 
     public void addItemToInventory(Item item) {
         inventory.add(item);
+    }
+
+    public void removeItemFromInventory(String userChoice, Adventure adventure){
+        if(userChoice.contains("drop")){
+             if(!inventory.isEmpty()){
+                 adventure.printRemovableItemListFromUI();
+                 for(Item item : inventory){
+                     adventure.giveShowItemsFromUI(item.getName(), item.getDescription());
+                 }
+                 String itemToBeRemoved = adventure.itemToBeRemovedMessageFromUI().toLowerCase();
+                 boolean removed = false;
+                 for(Item item : inventory){
+                    if(item.getName().toLowerCase().equals(itemToBeRemoved)){
+                    inventory.remove(item);
+                    currentRoom.getItemList().add(item);
+                    adventure.giveRemovedItemMessageFromUI(item.getName());
+                    removed = true;
+                    break;
+                    }
+                    if(!removed){
+                        System.out.println("no");
+                    }
+                }
+             } else {
+                 System.out.println("No");
+             }
+        }
     }
 
     public void playUserDirections(Adventure adventure, String userChoice) {
@@ -123,15 +149,14 @@ public class Player {
         }
     }
 
-    public String searchForItemsInCurrentRoom(){
+    public void searchForItemsInCurrentRoom(){
         if(!currentRoom.getItemList().isEmpty()){
             for(Item item : currentRoom.getItemList()){
-                return item.getName();
+                adventure.giveItemPrintFromUI(item.getName());
             }
         } else {
-             return "no items found";
+             adventure.noItemsInRoomErrorFromUI();
         }
-        return "";
     }
     public void lookForDoors(){
         if(currentRoom.getNorth() != null){
