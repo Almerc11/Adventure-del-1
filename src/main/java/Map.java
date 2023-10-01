@@ -1,17 +1,21 @@
 import java.util.*;
 
 public class Map {
-    private final Room room1;
-    private final Room room2;
-    private final Room room3;
-    private final Room room4;
-    private final Room room5;
-    private final Room room6;
-    private final Room room7;
-    private final Room room8;
-    private final Room room9;
+    private Room room1;
+    private Room room2;
+    private Room room3;
+    private Room room4;
+    private Room room5;
+    private Room room6;
+    private Room room7;
+    private Room room8;
+    private Room room9;
 
     public Map(){
+        createMap();
+    }
+
+    public void createMap(){
         room1 = new Room("Room 1", "A room with no distinct features, except for two doors.");
         room2 = new Room("Room 2", "A room with a strange looking woman in the middle, black hair. Open, dead eyes looking at the ground. Best not to disturb her. There are two doors next to her");
         room3 = new Room("Room 3", "A room with a worried looking wolf, it cant find it's pack. It looks to you with worried eyes. There are two doors in this room");
@@ -24,7 +28,8 @@ public class Map {
 
         room1.setEast(room2);
         room1.setSouth(room4);
-        room1.addItem(room1.createItem("Crystal", "A crystal that glows red"));
+        Item crystal = room1.createItem("Crystal", "A crystal that glows red");
+        room1.addItem(crystal);
 
         room2.setWest(room1);
         room2.setEast(room3);
@@ -57,7 +62,8 @@ public class Map {
     }
 
     public Room getStartRoom(){
-        return room1;
+        Room startRoom = room1;
+        return startRoom;
     }
 
     public Room getRoom5(){

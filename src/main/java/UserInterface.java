@@ -39,18 +39,8 @@ public class UserInterface {
         System.out.println("You can't go that way");
     }
 
-    public void printItemsInRoom(){
-        if(!itemList.isEmpty()){
-            for(Item item : itemList){
-                System.out.println("A " + item.getName());
-            }
-        } else {
-            System.out.println("There are no items in this room.");
-        }
-    }
-
-    public void printItemsInRoom(String itemName){
-        System.out.println("A " + itemName);
+    public void printItemsInRoom(String itemNameFromRoom){
+        System.out.println("A " + itemNameFromRoom);
     }
 
     public void noItems(){

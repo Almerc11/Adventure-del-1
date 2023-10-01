@@ -3,14 +3,18 @@ import java.util.ArrayList;
 public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
-    Adventure adventure = new Adventure();
+    Adventure adventure;
 
-    public Player() {
+    public Player(Adventure adventure) {
+        this.adventure = adventure;
+        this.inventory = new ArrayList<>();
+    }
+
+    public void createCurrentRoom(){
+        this.currentRoom = adventure.getStartRoomFromMap();
     }
 
     public void playerChoices(String userChoice) {
-        this.currentRoom = adventure.getStartRoomFromMap();
-        inventory = new ArrayList<>();
         UserInterface UI = new UserInterface();
 
         playUserDirections(UI, userChoice);
@@ -80,7 +84,7 @@ public class Player {
 
     public void playUserInventoryManagement(UserInterface UI, String userChoice) {
         if (userChoice.contains("look")) {
-            UI.lookForDoors(currentRoom);
+            searchForItems();
         } else if (userChoice.contains("take")) {
 
             if (!currentRoom.getItemList().isEmpty()) {
@@ -113,10 +117,21 @@ public class Player {
     public void searchForItems(){
         if(!currentRoom.getItemList().isEmpty()){
             for(Item item : currentRoom.getItemList()){
-                adventure.giveItemPrintFromUI();
+                adventure.giveItemPrintFromUI(item.getName());
             }
         } else {
             adventure.giveNoItemMessageFromUI();
         }
+    }
+
+    public String searchForItemsInCurrentRoom(){
+        if(!currentRoom.getItemList().isEmpty()){
+            for(Item item : currentRoom.getItemList()){
+                return item.getName();
+            }
+        } else {
+             return "no items found";
+        }
+        return "";
     }
 }
