@@ -14,8 +14,8 @@ public class UserInterface {
         System.out.println("Thank you for playing.");
     }
 
-    public void giveNormalStartMessage(Room room){
-        System.out.println("You are currently standing in " + room.getName() + ", " + room.getDescription());
+    public void giveNormalStartMessage(String roomName, String roomDescription){
+        System.out.println("You are currently standing in " + roomName + ", " + roomDescription);
         System.out.println("Inside you see:");
     }
     public void giveNorthDirectionMessage(){
@@ -39,16 +39,12 @@ public class UserInterface {
         System.out.println("You can't go that way");
     }
 
-    public void printItemsInRoom(Room room){
-        ArrayList<Item> itemList = room.getItemList();
-        if(!itemList.isEmpty()){
-            System.out.println("In this room you see:");
-            for(Item item : itemList){
-                System.out.println("A " + item.getName());
-            }
-        } else {
-            System.out.println("There are no items in this room.");
-        }
+    public void printItemsInRoom(String itemNameFromRoom){
+        System.out.println("A " + itemNameFromRoom);
+    }
+
+    public void noItems(){
+        System.out.println("There are no items in this room..");
     }
     public void takeItem(ArrayList<Item> listOfItems, Item item){
         if(!listOfItems.isEmpty()){

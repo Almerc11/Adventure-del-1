@@ -3,10 +3,15 @@ import java.util.ArrayList;
 public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
+    Adventure adventure;
 
-    public Player(Map map) {
-        this.currentRoom = map.getStartRoom();
-        inventory = new ArrayList<>();
+    public Player(Adventure adventure) {
+        this.adventure = adventure;
+        this.inventory = new ArrayList<>();
+    }
+
+    public void createCurrentRoom(){
+        this.currentRoom = adventure.getStartRoomFromMap();
     }
 
     public void playerChoices(String userChoice) {
@@ -79,7 +84,7 @@ public class Player {
 
     public void playUserInventoryManagement(UserInterface UI, String userChoice) {
         if (userChoice.contains("look")) {
-            UI.lookForDoors(currentRoom);
+            searchForItems();
         } else if (userChoice.contains("take")) {
 
             if (!currentRoom.getItemList().isEmpty()) {
@@ -102,5 +107,31 @@ public class Player {
         if (userChoice.contains("help")) {
             UI.help();
         }
+    }
+    public String getStartRoomName(){
+        return currentRoom.getName();
+    }
+    public String getStartRoomDescription(){
+        return currentRoom.getDescription();
+    }
+    public void searchForItems(){
+        if(!currentRoom.getItemList().isEmpty()){
+            for(Item item : currentRoom.getItemList()){
+                adventure.giveItemPrintFromUI(item.getName());
+            }
+        } else {
+            adventure.giveNoItemMessageFromUI();
+        }
+    }
+
+    public String searchForItemsInCurrentRoom(){
+        if(!currentRoom.getItemList().isEmpty()){
+            for(Item item : currentRoom.getItemList()){
+                return item.getName();
+            }
+        } else {
+             return "no items found";
+        }
+        return "";
     }
 }
