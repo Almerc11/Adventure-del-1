@@ -1,3 +1,5 @@
+import items.Item;
+
 import java.util.ArrayList;
 
 public class Adventure {
@@ -108,6 +110,9 @@ public class Adventure {
     }
     public void giveNoItemsErrorFromUI(){
         UI.noItemsError();
+    }
+    public void giveHealthStatusMessageFromUI(int health){
+        UI.showHealth(health);
     }
 
 

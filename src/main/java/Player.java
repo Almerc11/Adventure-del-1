@@ -1,9 +1,12 @@
+import items.Item;
+
 import java.util.ArrayList;
 
 public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
     private Adventure adventure;
+    int health = 100;
 
     private boolean exitGame;
 
@@ -35,6 +38,14 @@ public class Player {
         givePlayerHelp(adventure, userChoice);
 
         setExitGame(userChoice);
+
+        showHealth(userChoice);
+    }
+
+    public void showHealth(String userChoice){
+        if(userChoice.equals("health")){
+            adventure.giveHealthStatusMessageFromUI(health);
+        }
     }
 
     public Room getCurrentRoom() {

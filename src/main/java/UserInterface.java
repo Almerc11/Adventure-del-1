@@ -1,3 +1,5 @@
+import items.Item;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +14,15 @@ public class UserInterface {
     public void giveEndMessage(String roomDescription){
         System.out.println(roomDescription);
         System.out.println("Thank you for playing.");
+    }
+    public void showHealth(int health){
+        if(health <= 100 && health >= 80){
+            System.out.println("Your health is currently at: " + health + ", you are very healthy!");
+        } else if(health <= 80 && health >= 40){
+            System.out.println("Your health is currently at: " + health + ", it would be a good idea to eat something!");
+        } else if(health >= 1 && health <= 40){
+            System.out.println("Your health is currently at: " + health + ", your health is critical! You wont last long.");
+        }
     }
 
     public void giveNormalStartMessage(String roomName, String roomDescription){

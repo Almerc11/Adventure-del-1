@@ -1,4 +1,4 @@
-import java.util.*;
+import items.Item;
 
 public class Map {
     private Room room1;
@@ -39,7 +39,7 @@ public class Map {
         room3.setWest(room2);
         room3.setSouth(room6);
         room3.addItem(room3.createItem("Torch", "A torch giving light"));
-        room3.addItem(room3.createItem("Key", "A glowing key"));
+        room3.addItem(room3.createItem("items.Key", "A glowing key"));
         room3.addItem(room3.createItem("A thing", "Just a thing"));
 
         room4.setNorth(room1);
