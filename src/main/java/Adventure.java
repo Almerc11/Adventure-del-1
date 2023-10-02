@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Adventure {
@@ -65,8 +64,8 @@ public class Adventure {
     public void giveTakeItemMessageFromUI(ArrayList<Item> inventory, String itemName){
         UI.takeItem(inventory, itemName);
     }
-    public void showInventoryMessageFromUI(ArrayList<Item> inventory){
-        UI.showInventoryItems(inventory);
+    public void showInventoryMessageFromUI(String itemName, String itemDescribtion, int count){
+        UI.showInventoryItems(itemName, itemDescribtion, count);
     }
     public void ItemErrorFromUI(ArrayList<Item> inventory){
         UI.removeItemError(inventory);
@@ -100,6 +99,12 @@ public class Adventure {
 
     public void giveRemovedItemMessageFromUI(String itemName){
         UI.removeItem(itemName);
+    }
+    public void giveFirstShowInventoryMessageFromUI(){
+        UI.firstShowInventoryMessage();
+    }
+    public void giveShowInventoryFromUI(String itemName, String itemDescribtion, int count){
+        UI.showInventoryItems(itemName, itemDescribtion, count);
     }
 
 

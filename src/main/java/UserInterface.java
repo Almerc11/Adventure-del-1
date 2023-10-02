@@ -53,13 +53,17 @@ public class UserInterface {
             System.out.println("There are no items left to take in this room.");
         }
     }
-    public void showInventoryItems(ArrayList<Item> inventoryItems){
+
+    public void firstShowInventoryMessage(){
         System.out.println("Your inventory contains: ");
-        int count = 0;
-        for(Item item : inventoryItems){
-            count++;
-            System.out.println(count + ". " + item.getName() + ", " + item.getDescription());
-        }
+    }
+
+    public void showInventoryItems(String itemName, String itemDescribtion, int count){
+        System.out.println(count + ". " + itemName + ", " + itemDescribtion);
+    }
+
+    public void noItemsError(){
+        System.out.println("Your inventory does not contain any items!");
     }
 
     public void noItemsLeftError(){

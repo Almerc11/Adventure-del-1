@@ -12,6 +12,14 @@ public class Player {
         this.inventory = new ArrayList<>();
     }
 
+    public void showInventory(){
+            int count = 0;
+            for(Item item : inventory){
+            count++;
+            adventure.giveShowInventoryFromUI(item.getName(), item.getDescription(), count);
+        }
+    }
+
     public void createCurrentRoom(){
         this.currentRoom = adventure.getStartRoomFromMap();
     }
@@ -122,7 +130,8 @@ public class Player {
             }
         } else if (userChoice.contains("show")) {
             if (!inventory.isEmpty()) {
-                adventure.showInventoryMessageFromUI(inventory);
+                adventure.giveFirstShowInventoryMessageFromUI();
+                showInventory();
             } else {
                 adventure.ItemErrorFromUI(inventory);
             }
