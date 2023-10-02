@@ -33,25 +33,29 @@ public class Map {
 
         room2.setWest(room1);
         room2.setEast(room3);
-        room2.addItem(room1.createItem("Sword", "A golden sword with diamonds on the shaft"));
-        room2.addItem(room1.createItem("Bread", "A piece of luke warm bread"));
+        room2.addItem(room1.createItem("Torch", "A torch giving light"));
+        room2.addItem(room1.createFood("Bread", "A piece of luke warm bread", 5));
 
         room3.setWest(room2);
         room3.setSouth(room6);
-        room3.addItem(room3.createItem("Torch", "A torch giving light"));
-        room3.addItem(room3.createItem("items.Key", "A glowing key"));
-        room3.addItem(room3.createItem("A thing", "Just a thing"));
+        room3.addItem(room3.createItem("Book", "A book containing ancient spells"));
+        room3.addItem(room3.createWeapon("Sword of Justice", "A golden sword, gleaming with blue diamonds on each side of the blade", 10.5));
 
         room4.setNorth(room1);
         room4.setSouth(room7);
+        room4.addItem(room4.createItem("Key", "A glowing key"));
 
         room5.setSouth(room8);
 
         room6.setNorth(room3);
         room6.setSouth(room9);
+        room6.addItem(room6.createFood("Porkchop", "A steaming porkchop, made with herbs and grilled", 10));
+        room6.addItem(room6.createFood("Beef steak", "A steak made from the finest beef south of the world!", 15));
 
         room7.setNorth(room4);
         room7.setEast(room8);
+        room7.addItem(room7.createItem("Bone", "A bone, it looks human, but it could be from an animal.."));
+        room7.addItem(room7.createWeapon("Bow", "A bow with a silver string", 8));
 
         room8.setNorth(room5);
         room8.setWest(room7);
@@ -59,6 +63,8 @@ public class Map {
 
         room9.setNorth(room6);
         room9.setWest(room8);
+        room9.addItem(room9.createFood("Health potion", "A health potion that replenishes your wounds", 30));
+        room9.addItem(room9.createFood("Health potion", "A health potion that replenishes your wounds", 30));
     }
 
     public Room getStartRoom(){

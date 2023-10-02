@@ -91,8 +91,8 @@ public class Adventure {
     public void giveShowItemsFromUI(String itemName, String itemDescription){
         UI.showItems(itemName, itemDescription);
     }
-    public String itemToBeRemovedMessageFromUI(){
-        return UI.userChoiceToRemoveItem();
+    public String giveUserChoiceGeneralFromUI(){
+        return UI.userChoiceGeneral();
     }
 
     public void printRemovableItemListFromUI(){
@@ -113,6 +113,15 @@ public class Adventure {
     }
     public void giveHealthStatusMessageFromUI(int health){
         UI.showHealth(health);
+    }
+    public void giveEatMessageFromUI(){
+        UI.eatMessage();
+    }
+    public void giveSecondEatMessageFromUI(String foodName, String foodDescribtion, int foodHealthAddition){
+        UI.printFoodItems(foodName, foodDescribtion, foodHealthAddition);
+    }
+    public void giveNoFoodErrorFromUI(){
+        UI.noFoodsInInventoryError();
     }
 
 

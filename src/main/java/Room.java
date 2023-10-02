@@ -1,4 +1,6 @@
+import items.Food;
 import items.Item;
+import items.Weapon;
 
 import java.util.ArrayList;
 
@@ -64,6 +66,17 @@ public class Room {
         Item item = new Item(name, description);
         return item;
     }
+
+    public Item createWeapon(String name, String description, double damage){
+        Weapon weapon = new Weapon(name, description, damage);
+        return weapon;
+    }
+
+    public Item createFood(String name, String description, int healAddition){
+        Food food = new Food(name, description, healAddition);
+        return food;
+    }
+
     public void addItem(Item item){
         itemList.add(item);
     }

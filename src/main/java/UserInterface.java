@@ -100,10 +100,10 @@ public class UserInterface {
         System.out.println("What item would you like to remove?");
     }
 
-    public String userChoiceToRemoveItem(){
+    public String userChoiceGeneral(){
         Scanner input = new Scanner(System.in);
-        String itemToBeRemoved = input.nextLine();
-        return itemToBeRemoved;
+        String userChoice = input.nextLine();
+        return userChoice;
     }
 
     public void showItems(String itemName, String itemDescription){
@@ -129,5 +129,14 @@ public class UserInterface {
 
     public void userChoices(){
         System.out.println("What do you do?");
+    }
+    public void eatMessage(){
+        System.out.println("What item would you like to eat?");
+    }
+    public void printFoodItems(String foodName, String foodDescribtion, int foodHealthAddition){
+        System.out.println("A " + foodName + ", " + foodDescribtion + "(Gives " + foodHealthAddition + "hp)");
+    }
+    public void noFoodsInInventoryError(){
+        System.out.println("You do not have anything to eat.");
     }
 }

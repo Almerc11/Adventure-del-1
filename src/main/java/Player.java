@@ -1,3 +1,4 @@
+import items.Food;
 import items.Item;
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class Player {
         setExitGame(userChoice);
 
         showHealth(userChoice);
+
+        eat(userChoice);
     }
 
     public void showHealth(String userChoice){
@@ -74,7 +77,7 @@ public class Player {
                  for(Item item : inventory){
                      adventure.giveShowItemsFromUI(item.getName(), item.getDescription());
                  }
-                 String itemToBeRemoved = adventure.itemToBeRemovedMessageFromUI().toLowerCase();
+                 String itemToBeRemoved = adventure.giveUserChoiceGeneralFromUI().toLowerCase();
                  for(Item item : inventory){
                     if(item.getName().toLowerCase().equals(itemToBeRemoved)){
                     inventory.remove(item);
@@ -86,6 +89,24 @@ public class Player {
              } else {
                  adventure.giveNoItemsErrorFromUI();
              }
+        }
+    }
+
+    public void eat(String userChoice){
+        if(userChoice.equals("eat")){
+        adventure.giveEatMessageFromUI();
+        for(Item item : inventory) {
+            if (item instanceof Food) {
+                adventure.giveSecondEatMessageFromUI(item.getName(), item.getDescription(), ((Food) item).getHealthAddition());
+                String foodToBeEaten = adventure.giveUserChoiceGeneralFromUI();
+                if (foodToBeEaten.equals(item.getName())){
+                    health = ((Food) item).getHealthAddition() + health;
+                    inventory.remove(item);
+                }
+            } else {
+                adventure.giveNoFoodErrorFromUI();
+            }
+        }
         }
     }
 
