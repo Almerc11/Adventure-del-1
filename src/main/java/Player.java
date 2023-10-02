@@ -64,21 +64,16 @@ public class Player {
                      adventure.giveShowItemsFromUI(item.getName(), item.getDescription());
                  }
                  String itemToBeRemoved = adventure.itemToBeRemovedMessageFromUI().toLowerCase();
-                 boolean removed = false;
                  for(Item item : inventory){
                     if(item.getName().toLowerCase().equals(itemToBeRemoved)){
                     inventory.remove(item);
                     currentRoom.getItemList().add(item);
                     adventure.giveRemovedItemMessageFromUI(item.getName());
-                    removed = true;
                     break;
-                    }
-                    if(!removed){
-                        System.out.println("no");
                     }
                 }
              } else {
-                 System.out.println("No");
+                 adventure.giveNoItemsErrorFromUI();
              }
         }
     }

@@ -106,6 +106,9 @@ public class Adventure {
     public void giveShowInventoryFromUI(String itemName, String itemDescribtion, int count){
         UI.showInventoryItems(itemName, itemDescribtion, count);
     }
+    public void giveNoItemsErrorFromUI(){
+        UI.noItemsError();
+    }
 
 
 }
