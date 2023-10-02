@@ -5,6 +5,8 @@ public class Player {
     private ArrayList<Item> inventory;
     private Adventure adventure;
 
+    private int health = 100;
+
     private boolean exitGame;
 
     public Player(Adventure adventure) {
@@ -26,6 +28,10 @@ public class Player {
 
     public void playerChoices(Adventure adventure ,String userChoice) {
 
+        if (userChoice.contains("health")) {
+            showHealthStatus();
+        }
+
         playUserDirections(adventure, userChoice);
 
         playUserInventoryManagement(adventure, userChoice);
@@ -35,6 +41,7 @@ public class Player {
         givePlayerHelp(adventure, userChoice);
 
         setExitGame(userChoice);
+
     }
 
     public Room getCurrentRoom() {
@@ -174,6 +181,20 @@ public class Player {
         }
         if(currentRoom.getWest() != null){
             adventure.getLookForWestFromUI();
+        }
+            }
+    public void showHealthStatus() {
+        System.out.println("Health: " + health);
+        if (health >= 80) {
+            System.out.println("You are in excellent health.");
+        } else if (health >= 60) {
+            System.out.println("You are in good health, but avoid fighting right now.");
+        } else if (health >= 40) {
+            System.out.println("You are in fair health. Be cautious.");
+        } else if (health >= 20) {
+            System.out.println("Your health is low. Find a safe place to rest.");
+        } else {
+            System.out.println("Your health is critical. Seek medical attention immediately!");
         }
     }
 }
