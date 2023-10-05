@@ -2,18 +2,11 @@ package items;
 
 import items.Item;
 
-public class Weapon extends Item {
+public abstract class Weapon extends Item {
 
-    private double damage;
-
-    public Weapon(String name, String description, double damage) {
+    public Weapon(String name, String description) {
         super(name, description);
-        this.damage = damage;
     }
 
-    public double getDamage(){
-        return damage;
-    }
-
-
+    public abstract double getDamage();
 }

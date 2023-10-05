@@ -1,6 +1,4 @@
-import items.Food;
-import items.Item;
-import items.Weapon;
+import items.*;
 
 import java.util.ArrayList;
 
@@ -67,9 +65,14 @@ public class Room {
         return item;
     }
 
-    public Item createWeapon(String name, String description, double damage){
-        Weapon weapon = new Weapon(name, description, damage);
-        return weapon;
+    public Item createMeleeWeapon(String name, String description, double damage, double damageRange){
+        Weapon meleeWeapon = new MeleeWeapon(name, description, damage, damageRange);
+        return meleeWeapon;
+    }
+
+    public Item createRangedWeapon(String name, String description, double damage, double damageRange, int ammo){
+        Weapon rangedWeapon = new RangedWeapon(name, description, damage, damageRange, ammo);
+        return rangedWeapon;
     }
 
     public Item createFood(String name, String description, int healAddition){

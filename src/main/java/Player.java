@@ -1,5 +1,6 @@
 import items.Food;
 import items.Item;
+import items.Weapon;
 
 import java.util.ArrayList;
 
@@ -8,8 +9,8 @@ public class Player {
     private ArrayList<Item> inventory;
     private Adventure adventure;
     int health = 90;
-
     private boolean exitGame;
+    private Weapon equippedWeapon = null;
 
     public Player(Adventure adventure) {
         this.adventure = adventure;
@@ -43,6 +44,8 @@ public class Player {
         showHealth(userChoice);
 
         eat(userChoice);
+
+        equipWeapon(userChoice);
     }
 
     public void showHealth(String userChoice){
@@ -142,6 +145,34 @@ public class Player {
                 this.currentRoom = currentRoom.getSouth();
             } else {
                 adventure.giveErrorMessageFromUI();
+            }
+        }
+    }
+
+    public void equipWeapon(String userChoice){
+        if(userChoice.equals("equip")){
+            if(!inventory.isEmpty()) {
+                for(Item item : inventory) {
+                    if (item instanceof Weapon) {
+                        System.out.println(item.getName() + " " + item.getDescription() + " " + ((Weapon) item).getDamage());
+                        String weaponToBeEquipped = adventure.giveUserChoiceGeneralFromUI();
+                        if (item.getName().equals(weaponToBeEquipped)) {
+                            equippedWeapon = (Weapon) item;
+                            System.out.println("You have equiped: " + equippedWeapon.getName());
+                            break;
+                        }
+                    }
+                }
+            } else {
+                System.out.println("You do not have any equippable items in your inventory");
+            }
+        }
+    }
+
+    public void attack(String userChoice){
+        if(userChoice.equals("attack")){
+            if(equippedWeapon != null){
+                System.out.println("You attacked the air with a " + equippedWeapon.getDamage());
             }
         }
     }

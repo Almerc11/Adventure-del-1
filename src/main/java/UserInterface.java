@@ -134,7 +134,7 @@ public class UserInterface {
         System.out.println("What item would you like to eat?");
     }
     public void printFoodItems(String foodName, String foodDescribtion, int foodHealthAddition){
-        System.out.println("A " + foodName + ", " + foodDescribtion + "(Gives " + foodHealthAddition + "hp)");
+        System.out.println("A " + foodName + ", " + foodDescribtion + " (Gives " + foodHealthAddition + "hp)");
     }
     public void noFoodsInInventoryError(){
         System.out.println("You do not have anything to eat.");
