@@ -119,4 +119,15 @@ public class UserInterface {
     public void userChoices(){
         System.out.println("What do you do?");
     }
+
+
+
+    public void takeFood(ArrayList<Food> foodList, String foodName) {
+        if (!foodList.isEmpty()) {
+            System.out.println("You picked up " + foodName);
+        } else {
+            System.out.println("There is no food left in this room.");
+        }
+    }
 }
+

@@ -22,6 +22,7 @@ public class Room {
         this.north = null;
         this.south = null;
         this.itemList = new ArrayList<>();
+        this.foodList = new ArrayList<>();
 
     }
 
@@ -70,5 +71,11 @@ public class Room {
     public ArrayList<Item> getItemList(){
         return itemList;
     }
+
+    private ArrayList<Food> foodList;
+    public void addFood(Food food) {
+        foodList.add(food);
+    }
+
 
 }
