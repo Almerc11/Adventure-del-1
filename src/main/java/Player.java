@@ -7,7 +7,7 @@ public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
     private Adventure adventure;
-    int health = 100;
+    int health = 90;
 
     private boolean exitGame;
 
@@ -48,6 +48,7 @@ public class Player {
     public void showHealth(String userChoice){
         if(userChoice.equals("health")){
             adventure.giveHealthStatusMessageFromUI(health);
+            System.out.println(health);
         }
     }
 
@@ -93,19 +94,22 @@ public class Player {
     }
 
     public void eat(String userChoice){
+        Item foodToBeRemoved = null;
         if(userChoice.equals("eat")){
         adventure.giveEatMessageFromUI();
         for(Item item : inventory) {
             if (item instanceof Food) {
                 adventure.giveSecondEatMessageFromUI(item.getName(), item.getDescription(), ((Food) item).getHealthAddition());
                 String foodToBeEaten = adventure.giveUserChoiceGeneralFromUI();
-                if (foodToBeEaten.equals(item.getName())){
+                if (item.getName().equals(foodToBeEaten)){
                     health = ((Food) item).getHealthAddition() + health;
-                    inventory.remove(item);
+                    foodToBeRemoved = item;
+                    break;
                 }
-            } else {
-                adventure.giveNoFoodErrorFromUI();
             }
+        }
+        if(foodToBeRemoved != null){
+            inventory.remove(foodToBeRemoved);
         }
         }
     }
