@@ -1,106 +1,215 @@
+import items.Food;
+import items.Item;
+
 import java.util.ArrayList;
 
 public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
+    private Adventure adventure;
+    int health = 90;
 
-    public Player(Map map) {
-        this.currentRoom = map.getStartRoom();
-        inventory = new ArrayList<>();
+    private boolean exitGame;
+
+    public Player(Adventure adventure) {
+        this.adventure = adventure;
+        this.inventory = new ArrayList<>();
     }
 
-    public void playerChoices(String userChoice) {
-        UserInterface UI = new UserInterface();
-
-        playUserDirections(UI, userChoice);
-
-        playUserInventoryManagement(UI, userChoice);
-
-        givePlayerHelp(UI, userChoice);
-
-       /* else if(userChoice.contains("drop")){
+    public void showInventory(){
             int count = 0;
-            for(Item item : inventory) {
-                count++;
-                int playerChoice = UI.whatItemToRemove(inventory);
-                if (inventory.get(count) == inventory.get(playerChoice)) {
-                    Item itemAddedBackInRoom = inventory.get(playerChoice);
-                    UI.removeItem(inventory.get(count));
-                    inventory.remove(count);
-                    currentRoom.getItemList().add(itemAddedBackInRoom);
-                } else if (inventory.get(count) != inventory.get(playerChoice)) {
-                    UI.removeItemError();
-                } else if (inventory.isEmpty()) {
-                    UI.noItemsLeftError();
-                }
-            }
-        } */
+            for(Item item : inventory){
+            count++;
+            adventure.giveShowInventoryFromUI(item.getName(), item.getDescription(), count);
+        }
+    }
+
+    public void createCurrentRoom(){
+        this.currentRoom = adventure.getStartRoomFromMap();
+    }
+
+    public void playerChoices(Adventure adventure ,String userChoice) {
+
+        playUserDirections(adventure, userChoice);
+
+        playUserInventoryManagement(adventure, userChoice);
+
+        removeItemFromInventory(userChoice, adventure);
+
+        givePlayerHelp(adventure, userChoice);
+
+        setExitGame(userChoice);
+
+        showHealth(userChoice);
+
+        eat(userChoice);
+    }
+
+    public void showHealth(String userChoice){
+        if(userChoice.equals("health")){
+            adventure.giveHealthStatusMessageFromUI(health);
+            System.out.println(health);
+        }
     }
 
     public Room getCurrentRoom() {
         return currentRoom;
     }
+    public void setExitGame(String userChoice){
+        this.exitGame = false;
+        if(userChoice.contains("exit")){
+            exitGame = true;
+        }
+    }
+
+    public boolean getExitGame(){
+        return exitGame;
+    }
+
 
     public void addItemToInventory(Item item) {
         inventory.add(item);
     }
 
-    public void playUserDirections(UserInterface UI, String userChoice) {
+    public void removeItemFromInventory(String userChoice, Adventure adventure){
+        if(userChoice.contains("drop")){
+             if(!inventory.isEmpty()){
+                 adventure.printRemovableItemListFromUI();
+                 for(Item item : inventory){
+                     adventure.giveShowItemsFromUI(item.getName(), item.getDescription());
+                 }
+                 String itemToBeRemoved = adventure.giveUserChoiceGeneralFromUI().toLowerCase();
+                 for(Item item : inventory){
+                    if(item.getName().toLowerCase().equals(itemToBeRemoved)){
+                    inventory.remove(item);
+                    currentRoom.getItemList().add(item);
+                    adventure.giveRemovedItemMessageFromUI(item.getName());
+                    break;
+                    }
+                }
+             } else {
+                 adventure.giveNoItemsErrorFromUI();
+             }
+        }
+    }
+
+    public void eat(String userChoice){
+        Item foodToBeRemoved = null;
+        if(userChoice.equals("eat")){
+        adventure.giveEatMessageFromUI();
+        for(Item item : inventory) {
+            if (item instanceof Food) {
+                adventure.giveSecondEatMessageFromUI(item.getName(), item.getDescription(), ((Food) item).getHealthAddition());
+                String foodToBeEaten = adventure.giveUserChoiceGeneralFromUI();
+                if (item.getName().equals(foodToBeEaten)){
+                    health = ((Food) item).getHealthAddition() + health;
+                    foodToBeRemoved = item;
+                    break;
+                }
+            }
+        }
+        if(foodToBeRemoved != null){
+            inventory.remove(foodToBeRemoved);
+        }
+        }
+    }
+
+    public void playUserDirections(Adventure adventure, String userChoice) {
         if (userChoice.contains("go north")) {
             if (currentRoom.getNorth() != null) {
-                UI.giveNorthDirectionMessage();
+                adventure.giveNorthMessageFromUI();
                 this.currentRoom = currentRoom.getNorth();
             } else {
-                UI.giveErrorDirectionsMessage();
+                adventure.giveErrorMessageFromUI();
             }
         } else if (userChoice.contains("go east")) {
             if (currentRoom.getEast() != null) {
-                UI.giveEastDirectionMessage();
+                adventure.giveEastMessageFromUI();
                 this.currentRoom = currentRoom.getEast();
             } else {
-                UI.giveErrorDirectionsMessage();
+                adventure.giveErrorMessageFromUI();
             }
         } else if (userChoice.contains("go west")) {
             if (currentRoom.getWest() != null) {
-                UI.giveWestDirectionMessage();
+                adventure.giveWestMessageFromUI();
                 this.currentRoom = currentRoom.getWest();
             } else {
-                UI.giveErrorDirectionsMessage();
+                adventure.giveErrorMessageFromUI();
             }
         } else if (userChoice.contains("go south")) {
             if (currentRoom.getSouth() != null) {
-                UI.giveSouthDirectionMessage();
+                adventure.giveSouthMessageFromUI();
                 this.currentRoom = currentRoom.getSouth();
             } else {
-                UI.giveErrorDirectionsMessage();
+                adventure.giveErrorMessageFromUI();
             }
         }
     }
 
-    public void playUserInventoryManagement(UserInterface UI, String userChoice) {
+    public void playUserInventoryManagement(Adventure adventure, String userChoice) {
         if (userChoice.contains("look")) {
-            UI.lookForDoors(currentRoom);
+            searchForItems();
+            lookForDoors();
         } else if (userChoice.contains("take")) {
-
             if (!currentRoom.getItemList().isEmpty()) {
-                Item item = currentRoom.getItemList().get(0);
-                addItemToInventory(item);
-                UI.takeItem(currentRoom.getItemList(), item);
+                String itemName = currentRoom.getItemList().get(0).getName();
+                addItemToInventory(currentRoom.getItemList().get(0));
+                adventure.giveTakeItemMessageFromUI(currentRoom.getItemList(), itemName);
                 currentRoom.getItemList().remove(0);
             } else {
-                UI.noItemsLeftError();
+                adventure.noItemsInRoomErrorFromUI();
             }
         } else if (userChoice.contains("show")) {
             if (!inventory.isEmpty()) {
-                UI.showInventoryItems(inventory);
+                adventure.giveFirstShowInventoryMessageFromUI();
+                showInventory();
             } else {
-                UI.removeItemError(inventory);
+                adventure.ItemErrorFromUI(inventory);
             }
         }
     }
-    public void givePlayerHelp(UserInterface UI, String userChoice){
+    public void givePlayerHelp(Adventure adventure, String userChoice){
         if (userChoice.contains("help")) {
-            UI.help();
+            adventure.helpFromUI();
+        }
+    }
+    public String getStartRoomName(){
+        return currentRoom.getName();
+    }
+    public String getStartRoomDescription(){
+        return currentRoom.getDescription();
+    }
+    public void searchForItems(){
+        if(!currentRoom.getItemList().isEmpty()){
+            for(Item item : currentRoom.getItemList()){
+                adventure.giveItemPrintFromUI(item.getName());
+            }
+        } else {
+            adventure.giveNoItemMessageFromUI();
+        }
+    }
+
+    public void searchForItemsInCurrentRoom(){
+        if(!currentRoom.getItemList().isEmpty()){
+            for(Item item : currentRoom.getItemList()){
+                adventure.giveItemPrintFromUI(item.getName());
+            }
+        } else {
+             adventure.noItemsInRoomErrorFromUI();
+        }
+    }
+    public void lookForDoors(){
+        if(currentRoom.getNorth() != null){
+            adventure.getLookForNorthFromUI();
+        }
+        if(currentRoom.getSouth() != null){
+            adventure.getLookForSouthFromUI();
+        }
+        if(currentRoom.getEast() != null){
+            adventure.getLookForEastFromUI();
+        }
+        if(currentRoom.getWest() != null){
+            adventure.getLookForWestFromUI();
         }
     }
 }
