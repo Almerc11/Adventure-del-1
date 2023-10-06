@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+import items.*;
 
 import java.util.ArrayList;
 
@@ -64,6 +64,22 @@ public class Room {
         Item item = new Item(name, description);
         return item;
     }
+
+    public Item createMeleeWeapon(String name, String description, double damage, double damageRange){
+        Weapon meleeWeapon = new MeleeWeapon(name, description, damage, damageRange);
+        return meleeWeapon;
+    }
+
+    public Item createRangedWeapon(String name, String description, double damage, double damageRange, int ammo){
+        Weapon rangedWeapon = new RangedWeapon(name, description, damage, damageRange, ammo);
+        return rangedWeapon;
+    }
+
+    public Item createFood(String name, String description, int healAddition){
+        Food food = new Food(name, description, healAddition);
+        return food;
+    }
+
     public void addItem(Item item){
         itemList.add(item);
     }
