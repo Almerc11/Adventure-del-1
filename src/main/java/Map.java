@@ -39,7 +39,7 @@ public class Map {
         room3.setWest(room2);
         room3.setSouth(room6);
         room3.addItem(room3.createItem("Book", "A book containing ancient spells"));
-        room3.addItem(room3.createMeleeWeapon("Sword of Justice", "A golden sword, gleaming with blue diamonds on each side of the blade", 10.5,6.5));
+        room3.addItem(room3.createMeleeWeapon("Sword of Justice", "A golden sword, gleaming with blue diamonds on each side of the blade", 10.5,1.3));
 
         room4.setNorth(room1);
         room4.setSouth(room7);

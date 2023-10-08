@@ -154,17 +154,16 @@ public class Player {
             if(!inventory.isEmpty()) {
                 for(Item item : inventory) {
                     if (item instanceof Weapon) {
-                        System.out.println(item.getName() + " " + item.getDescription() + " " + ((Weapon) item).getDamage());
+                        adventure.printWeaponsInInventoryMessageFromUI(item.getName(), item.getDescription(), ((Weapon) item).getDamage());
                         String weaponToBeEquipped = adventure.giveUserChoiceGeneralFromUI();
                         if (item.getName().equals(weaponToBeEquipped)) {
                             equippedWeapon = (Weapon) item;
-                            System.out.println("You have equiped: " + equippedWeapon.getName());
-                            break;
+                            adventure.giveEquipMessageFromUI(equippedWeapon.getName());
                         }
                     }
                 }
             } else {
-                System.out.println("You do not have any equippable items in your inventory");
+                adventure.giveEquipMessageErrorFromUI();
             }
         }
     }
@@ -172,13 +171,11 @@ public class Player {
     public void attack(String userChoice){
         if(userChoice.equals("attack")){
             if(equippedWeapon != null){
-                if(equippedWeapon instanceof MeleeWeapon){
-                    System.out.println("You attacked the air with a " + equippedWeapon.getDamage() + " with a range of " + ((MeleeWeapon) equippedWeapon).getDamageRange());
-                } else if(equippedWeapon instanceof RangedWeapon){
-                    System.out.println("You attacked the air with a " + equippedWeapon.getDamage() + " with a range of " + ((RangedWeapon) equippedWeapon).getDamageRange());
+                if(equippedWeapon instanceof MeleeWeapon || equippedWeapon instanceof RangedWeapon) {
+                    adventure.giveAttackMessageFromUI(equippedWeapon.getDamage(), ((MeleeWeapon) equippedWeapon).getDamageRange());
                 }
             } else {
-                System.out.println("You do noy have any weapon equipped!");
+                adventure.giveAttackErrorFromUI();
             }
         }
     }

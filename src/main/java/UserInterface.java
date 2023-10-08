@@ -1,4 +1,6 @@
 import items.Item;
+import items.MeleeWeapon;
+import items.Weapon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -138,5 +140,22 @@ public class UserInterface {
     }
     public void noFoodsInInventoryError(){
         System.out.println("You do not have anything to eat.");
+    }
+
+    public void attackMessage(double damage, double range){
+        System.out.println("You attacked the air with " + damage + " damage" + " with a range of " + range + "m");
+    }
+    public void attackMessageError(){
+        System.out.println("You do not have a weapon equipped!");
+    }
+
+    public void equipMessage(String weaponName){
+        System.out.println("You have equiped: " + weaponName);
+    }
+    public void equipWeaponError(){
+        System.out.println("You do not have any equippable items in your inventory");
+    }
+    public void printWeaponsInInventory(String weaponName, String weaponDescription, double weaponDamage){
+        System.out.println(weaponName + " " + weaponDescription + " " + weaponDamage + " damage");
     }
 }

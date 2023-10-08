@@ -123,6 +123,21 @@ public class Adventure {
     public void giveNoFoodErrorFromUI(){
         UI.noFoodsInInventoryError();
     }
+    public void giveAttackMessageFromUI(double damage, double range){
+        UI.attackMessage(damage, range);
+    }
+    public void giveAttackErrorFromUI(){
+        UI.attackMessageError();
+    }
+    public void giveEquipMessageFromUI(String weaponName){
+        UI.equipMessage(weaponName);
+    }
+    public void giveEquipMessageErrorFromUI(){
+        UI.equipWeaponError();
+    }
+    public void printWeaponsInInventoryMessageFromUI(String weaponName, String weaponDescription, double weaponDamage){
+        UI.printWeaponsInInventory(weaponName, weaponDescription, weaponDamage);
+    }
 
 
 }
