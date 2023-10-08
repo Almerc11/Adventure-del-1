@@ -1,6 +1,4 @@
-import items.Food;
-import items.Item;
-import items.Weapon;
+import items.*;
 
 import java.util.ArrayList;
 
@@ -46,6 +44,8 @@ public class Player {
         eat(userChoice);
 
         equipWeapon(userChoice);
+
+        attack(userChoice);
     }
 
     public void showHealth(String userChoice){
@@ -172,7 +172,13 @@ public class Player {
     public void attack(String userChoice){
         if(userChoice.equals("attack")){
             if(equippedWeapon != null){
-                System.out.println("You attacked the air with a " + equippedWeapon.getDamage());
+                if(equippedWeapon instanceof MeleeWeapon){
+                    System.out.println("You attacked the air with a " + equippedWeapon.getDamage() + " with a range of " + ((MeleeWeapon) equippedWeapon).getDamageRange());
+                } else if(equippedWeapon instanceof RangedWeapon){
+                    System.out.println("You attacked the air with a " + equippedWeapon.getDamage() + " with a range of " + ((RangedWeapon) equippedWeapon).getDamageRange());
+                }
+            } else {
+                System.out.println("You do noy have any weapon equipped!");
             }
         }
     }
