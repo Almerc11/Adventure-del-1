@@ -66,9 +66,11 @@ public class Room {
         return item;
     }
     public void addItem(Item item){
+
         itemList.add(item);
     }
     public ArrayList<Item> getItemList(){
+
         return itemList;
     }
 

@@ -129,5 +129,14 @@ public class UserInterface {
             System.out.println("There is no food left in this room.");
         }
     }
+
+    public void playerChoices(Adventure adventure ,String userChoice) {
+        // ...
+
+        if (userChoice.contains("health")) {
+            showHealthStatus();
+        }
+    }
+
 }
 

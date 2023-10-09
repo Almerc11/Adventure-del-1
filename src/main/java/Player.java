@@ -5,11 +5,14 @@ public class Player {
     private ArrayList<Item> inventory;
     private Adventure adventure;
 
+
     private boolean exitGame;
+
 
     public Player(Adventure adventure) {
         this.adventure = adventure;
         this.inventory = new ArrayList<>();
+        this.health = 50;
     }
 
     public void showInventory(){
@@ -46,6 +49,7 @@ public class Player {
             exitGame = true;
         }
     }
+
 
     public boolean getExitGame(){
         return exitGame;
