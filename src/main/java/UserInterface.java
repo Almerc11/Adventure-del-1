@@ -1,3 +1,7 @@
+import items.Item;
+import items.MeleeWeapon;
+import items.Weapon;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +16,15 @@ public class UserInterface {
     public void giveEndMessage(String roomDescription){
         System.out.println(roomDescription);
         System.out.println("Thank you for playing.");
+    }
+    public void showHealth(int health){
+        if(health <= 100 && health >= 80){
+            System.out.println("Your health is currently at: " + health + ", you are very healthy!");
+        } else if(health <= 80 && health >= 40){
+            System.out.println("Your health is currently at: " + health + ", it would be a good idea to eat something!");
+        } else if(health >= 1 && health <= 40){
+            System.out.println("Your health is currently at: " + health + ", your health is critical! You wont last long.");
+        }
     }
 
     public void giveNormalStartMessage(String roomName, String roomDescription){
@@ -89,10 +102,10 @@ public class UserInterface {
         System.out.println("What item would you like to remove?");
     }
 
-    public String userChoiceToRemoveItem(){
+    public String userChoiceGeneral(){
         Scanner input = new Scanner(System.in);
-        String itemToBeRemoved = input.nextLine();
-        return itemToBeRemoved;
+        String userChoice = input.nextLine();
+        return userChoice;
     }
 
     public void showItems(String itemName, String itemDescription){
@@ -120,23 +133,31 @@ public class UserInterface {
         System.out.println("What do you do?");
     }
 
-
-
-    public void takeFood(ArrayList<Food> foodList, String foodName) {
-        if (!foodList.isEmpty()) {
-            System.out.println("You picked up " + foodName);
-        } else {
-            System.out.println("There is no food left in this room.");
-        }
+    public void eatMessage(){
+        System.out.println("What item would you like to eat?");
+    }
+    public void printFoodItems(String foodName, String foodDescribtion, int foodHealthAddition){
+        System.out.println("A " + foodName + ", " + foodDescribtion + " (Gives " + foodHealthAddition + "hp)");
+    }
+    public void noFoodsInInventoryError(){
+        System.out.println("You do not have anything to eat.");
     }
 
-    public void playerChoices(Adventure adventure ,String userChoice) {
-        // ...
-
-        if (userChoice.contains("health")) {
-            showHealthStatus();
-        }
+    public void attackMessage(double damage, double range){
+        System.out.println("You attacked the air with " + damage + " damage" + " with a range of " + range + "m");
+    }
+    public void attackMessageError(){
+        System.out.println("You do not have a weapon equipped!");
     }
 
+    public void equipMessage(String weaponName){
+        System.out.println("You have equiped: " + weaponName);
+    }
+    public void equipWeaponError(){
+        System.out.println("You do not have any equippable items in your inventory");
+    }
+    public void printWeaponsInInventory(String weaponName, String weaponDescription, double weaponDamage){
+        System.out.println(weaponName + " " + weaponDescription + " " + weaponDamage + " damage");
+    }
 }
 

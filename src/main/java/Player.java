@@ -1,3 +1,5 @@
+import items.*;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -5,8 +7,10 @@ public class Player {
     private ArrayList<Item> inventory;
     private Adventure adventure;
 
+    int health = 90;
 
     private boolean exitGame;
+    private Weapon equippedWeapon = null;
 
 
     public Player(Adventure adventure) {
@@ -38,6 +42,21 @@ public class Player {
         givePlayerHelp(adventure, userChoice);
 
         setExitGame(userChoice);
+
+        showHealth(userChoice);
+
+        eat(userChoice);
+
+        equipWeapon(userChoice);
+
+        attack(userChoice);
+    }
+
+    public void showHealth(String userChoice){
+        if(userChoice.equals("health")){
+            adventure.giveHealthStatusMessageFromUI(health);
+            System.out.println(health);
+        }
     }
 
     public Room getCurrentRoom() {
@@ -67,7 +86,7 @@ public class Player {
                  for(Item item : inventory){
                      adventure.giveShowItemsFromUI(item.getName(), item.getDescription());
                  }
-                 String itemToBeRemoved = adventure.itemToBeRemovedMessageFromUI().toLowerCase();
+                 String itemToBeRemoved = adventure.giveUserChoiceGeneralFromUI().toLowerCase();
                  for(Item item : inventory){
                     if(item.getName().toLowerCase().equals(itemToBeRemoved)){
                     inventory.remove(item);
@@ -79,6 +98,32 @@ public class Player {
              } else {
                  adventure.giveNoItemsErrorFromUI();
              }
+        }
+    }
+
+    public void eat(String userChoice){
+        Item foodToBeRemoved = null;
+        if(userChoice.equals("eat")){
+        adventure.giveEatMessageFromUI();
+        for(Item item : inventory){
+            if(item instanceof Food){
+                adventure.giveSecondEatMessageFromUI(item.getName(), item.getDescription(), ((Food) item).getHealthAddition());
+            }
+        }
+
+        String foodToBeEaten = adventure.giveUserChoiceGeneralFromUI();
+        for(Item item : inventory) {
+            if (item instanceof Food) {
+                if (item.getName().equals(foodToBeEaten)){
+                    health = ((Food) item).getHealthAddition() + health;
+                    foodToBeRemoved = item;
+                    break;
+                }
+            }
+        }
+        if(foodToBeRemoved != null){
+            inventory.remove(foodToBeRemoved);
+        }
         }
     }
 
@@ -110,6 +155,42 @@ public class Player {
                 this.currentRoom = currentRoom.getSouth();
             } else {
                 adventure.giveErrorMessageFromUI();
+            }
+        }
+    }
+
+    public void equipWeapon(String userChoice){
+        if(userChoice.equals("equip")){
+            if(!inventory.isEmpty()) {
+                for(Item item : inventory){
+                    if(item instanceof Weapon){
+                        adventure.printWeaponsInInventoryMessageFromUI(item.getName(), item.getDescription(), ((Weapon) item).getDamage());
+                    }
+                }
+                String weaponToBeEquipped = adventure.giveUserChoiceGeneralFromUI();
+                for(Item item : inventory) {
+                    if (item instanceof Weapon) {
+                        if (item.getName().equals(weaponToBeEquipped)) {
+                            equippedWeapon = (Weapon) item;
+                            adventure.giveEquipMessageFromUI(equippedWeapon.getName());
+                            break;
+                        }
+                    }
+                }
+            } else {
+                adventure.giveEquipMessageErrorFromUI();
+            }
+        }
+    }
+
+    public void attack(String userChoice){
+        if(userChoice.equals("attack")){
+            if(equippedWeapon != null){
+                if(equippedWeapon instanceof MeleeWeapon || equippedWeapon instanceof RangedWeapon) {
+                    adventure.giveAttackMessageFromUI(equippedWeapon.getDamage(), ((MeleeWeapon) equippedWeapon).getDamageRange());
+                }
+            } else {
+                adventure.giveAttackErrorFromUI();
             }
         }
     }

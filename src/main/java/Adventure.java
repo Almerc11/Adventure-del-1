@@ -1,3 +1,5 @@
+import items.Item;
+
 import java.util.ArrayList;
 
 public class Adventure {
@@ -89,8 +91,8 @@ public class Adventure {
     public void giveShowItemsFromUI(String itemName, String itemDescription){
         UI.showItems(itemName, itemDescription);
     }
-    public String itemToBeRemovedMessageFromUI(){
-        return UI.userChoiceToRemoveItem();
+    public String giveUserChoiceGeneralFromUI(){
+        return UI.userChoiceGeneral();
     }
 
     public void printRemovableItemListFromUI(){
@@ -108,6 +110,33 @@ public class Adventure {
     }
     public void giveNoItemsErrorFromUI(){
         UI.noItemsError();
+    }
+    public void giveHealthStatusMessageFromUI(int health){
+        UI.showHealth(health);
+    }
+    public void giveEatMessageFromUI(){
+        UI.eatMessage();
+    }
+    public void giveSecondEatMessageFromUI(String foodName, String foodDescribtion, int foodHealthAddition){
+        UI.printFoodItems(foodName, foodDescribtion, foodHealthAddition);
+    }
+    public void giveNoFoodErrorFromUI(){
+        UI.noFoodsInInventoryError();
+    }
+    public void giveAttackMessageFromUI(double damage, double range){
+        UI.attackMessage(damage, range);
+    }
+    public void giveAttackErrorFromUI(){
+        UI.attackMessageError();
+    }
+    public void giveEquipMessageFromUI(String weaponName){
+        UI.equipMessage(weaponName);
+    }
+    public void giveEquipMessageErrorFromUI(){
+        UI.equipWeaponError();
+    }
+    public void printWeaponsInInventoryMessageFromUI(String weaponName, String weaponDescription, double weaponDamage){
+        UI.printWeaponsInInventory(weaponName, weaponDescription, weaponDamage);
     }
 
 
