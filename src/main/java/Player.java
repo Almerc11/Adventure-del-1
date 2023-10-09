@@ -158,7 +158,7 @@ public class Player {
                         String weaponToBeEquipped = adventure.giveUserChoiceGeneralFromUI();
                         if (item.getName().equals(weaponToBeEquipped)) {
                             equippedWeapon = (Weapon) item;
-                            System.out.println("You have equiped: " + equippedWeapon.getName());
+                            System.out.println("You have equipped: " + equippedWeapon.getName());
                             break;
                         }
                     }
