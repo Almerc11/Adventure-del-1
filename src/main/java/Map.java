@@ -30,11 +30,14 @@ public class Map {
         room1.setSouth(room4);
         Item crystal = room1.createItem("Crystal", "A crystal that glows red");
         room1.addItem(crystal);
+        room1.addItem(new Food("Elixsir", "Drink", 25));
 
         room2.setWest(room1);
         room2.setEast(room3);
+
         room2.addItem(room1.createItem("Torch", "A torch giving light"));
         room2.addItem(room1.createFood("Bread", "A piece of luke warm bread", 5));
+
 
         room3.setWest(room2);
         room3.setSouth(room6);
@@ -43,6 +46,7 @@ public class Map {
 
         room4.setNorth(room1);
         room4.setSouth(room7);
+
         room4.addItem(room4.createItem("Key", "A glowing key"));
 
         room5.setSouth(room8);

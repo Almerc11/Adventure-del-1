@@ -132,6 +132,7 @@ public class UserInterface {
     public void userChoices(){
         System.out.println("What do you do?");
     }
+
     public void eatMessage(){
         System.out.println("What item would you like to eat?");
     }
@@ -159,3 +160,4 @@ public class UserInterface {
         System.out.println(weaponName + " " + weaponDescription + " " + weaponDamage + " damage");
     }
 }
+
