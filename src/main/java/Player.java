@@ -100,10 +100,15 @@ public class Player {
         Item foodToBeRemoved = null;
         if(userChoice.equals("eat")){
         adventure.giveEatMessageFromUI();
+        for(Item item : inventory){
+            if(item instanceof Food){
+                adventure.giveSecondEatMessageFromUI(item.getName(), item.getDescription(), ((Food) item).getHealthAddition());
+            }
+        }
+
+        String foodToBeEaten = adventure.giveUserChoiceGeneralFromUI();
         for(Item item : inventory) {
             if (item instanceof Food) {
-                adventure.giveSecondEatMessageFromUI(item.getName(), item.getDescription(), ((Food) item).getHealthAddition());
-                String foodToBeEaten = adventure.giveUserChoiceGeneralFromUI();
                 if (item.getName().equals(foodToBeEaten)){
                     health = ((Food) item).getHealthAddition() + health;
                     foodToBeRemoved = item;
@@ -152,13 +157,18 @@ public class Player {
     public void equipWeapon(String userChoice){
         if(userChoice.equals("equip")){
             if(!inventory.isEmpty()) {
+                for(Item item : inventory){
+                    if(item instanceof Weapon){
+                        adventure.printWeaponsInInventoryMessageFromUI(item.getName(), item.getDescription(), ((Weapon) item).getDamage());
+                    }
+                }
+                String weaponToBeEquipped = adventure.giveUserChoiceGeneralFromUI();
                 for(Item item : inventory) {
                     if (item instanceof Weapon) {
-                        adventure.printWeaponsInInventoryMessageFromUI(item.getName(), item.getDescription(), ((Weapon) item).getDamage());
-                        String weaponToBeEquipped = adventure.giveUserChoiceGeneralFromUI();
                         if (item.getName().equals(weaponToBeEquipped)) {
                             equippedWeapon = (Weapon) item;
                             adventure.giveEquipMessageFromUI(equippedWeapon.getName());
+                            break;
                         }
                     }
                 }
