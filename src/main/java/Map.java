@@ -39,7 +39,7 @@ public class Map {
         room3.setWest(room2);
         room3.setSouth(room6);
         room3.addItem(room3.createItem("Book", "A book containing ancient spells"));
-        room3.addItem(room3.createWeapon("Sword of Justice", "A golden sword, gleaming with blue diamonds on each side of the blade", 10.5));
+        room3.addItem(room3.createMeleeWeapon("Sword of Justice", "A golden sword, gleaming with blue diamonds on each side of the blade", 10.5,1.3));
 
         room4.setNorth(room1);
         room4.setSouth(room7);
@@ -55,7 +55,7 @@ public class Map {
         room7.setNorth(room4);
         room7.setEast(room8);
         room7.addItem(room7.createItem("Bone", "A bone, it looks human, but it could be from an animal.."));
-        room7.addItem(room7.createWeapon("Bow", "A bow with a silver string", 8));
+        room7.addItem(room7.createRangedWeapon("Bow", "A bow with a silver string", 8, 13, 50));
 
         room8.setNorth(room5);
         room8.setWest(room7);
