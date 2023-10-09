@@ -1,20 +1,18 @@
-import items.Food;
-import items.Item;
-import items.Weapon;
-
 import java.util.ArrayList;
 
 public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
     private Adventure adventure;
-    int health = 90;
+
+
     private boolean exitGame;
-    private Weapon equippedWeapon = null;
+
 
     public Player(Adventure adventure) {
         this.adventure = adventure;
         this.inventory = new ArrayList<>();
+        this.health = 50;
     }
 
     public void showInventory(){
@@ -40,19 +38,6 @@ public class Player {
         givePlayerHelp(adventure, userChoice);
 
         setExitGame(userChoice);
-
-        showHealth(userChoice);
-
-        eat(userChoice);
-
-        equipWeapon(userChoice);
-    }
-
-    public void showHealth(String userChoice){
-        if(userChoice.equals("health")){
-            adventure.giveHealthStatusMessageFromUI(health);
-            System.out.println(health);
-        }
     }
 
     public Room getCurrentRoom() {
@@ -64,6 +49,7 @@ public class Player {
             exitGame = true;
         }
     }
+
 
     public boolean getExitGame(){
         return exitGame;
@@ -81,7 +67,7 @@ public class Player {
                  for(Item item : inventory){
                      adventure.giveShowItemsFromUI(item.getName(), item.getDescription());
                  }
-                 String itemToBeRemoved = adventure.giveUserChoiceGeneralFromUI().toLowerCase();
+                 String itemToBeRemoved = adventure.itemToBeRemovedMessageFromUI().toLowerCase();
                  for(Item item : inventory){
                     if(item.getName().toLowerCase().equals(itemToBeRemoved)){
                     inventory.remove(item);
@@ -93,27 +79,6 @@ public class Player {
              } else {
                  adventure.giveNoItemsErrorFromUI();
              }
-        }
-    }
-
-    public void eat(String userChoice){
-        Item foodToBeRemoved = null;
-        if(userChoice.equals("eat")){
-        adventure.giveEatMessageFromUI();
-        for(Item item : inventory) {
-            if (item instanceof Food) {
-                adventure.giveSecondEatMessageFromUI(item.getName(), item.getDescription(), ((Food) item).getHealthAddition());
-                String foodToBeEaten = adventure.giveUserChoiceGeneralFromUI();
-                if (item.getName().equals(foodToBeEaten)){
-                    health = ((Food) item).getHealthAddition() + health;
-                    foodToBeRemoved = item;
-                    break;
-                }
-            }
-        }
-        if(foodToBeRemoved != null){
-            inventory.remove(foodToBeRemoved);
-        }
         }
     }
 
@@ -145,34 +110,6 @@ public class Player {
                 this.currentRoom = currentRoom.getSouth();
             } else {
                 adventure.giveErrorMessageFromUI();
-            }
-        }
-    }
-
-    public void equipWeapon(String userChoice){
-        if(userChoice.equals("equip")){
-            if(!inventory.isEmpty()) {
-                for(Item item : inventory) {
-                    if (item instanceof Weapon) {
-                        System.out.println(item.getName() + " " + item.getDescription() + " " + ((Weapon) item).getDamage());
-                        String weaponToBeEquipped = adventure.giveUserChoiceGeneralFromUI();
-                        if (item.getName().equals(weaponToBeEquipped)) {
-                            equippedWeapon = (Weapon) item;
-                            System.out.println("You have equipped: " + equippedWeapon.getName());
-                            break;
-                        }
-                    }
-                }
-            } else {
-                System.out.println("You do not have any equippable items in your inventory");
-            }
-        }
-    }
-
-    public void attack(String userChoice){
-        if(userChoice.equals("attack")){
-            if(equippedWeapon != null){
-                System.out.println("You attacked the air with a " + equippedWeapon.getDamage());
             }
         }
     }
