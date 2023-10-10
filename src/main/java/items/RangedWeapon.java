@@ -10,6 +10,12 @@ public class RangedWeapon extends Weapon{
         this.damageRange = damageRange;
         this.ammo = ammo;
     }
+    public RangedWeapon(String name, String description, double damage, double damageRange) {
+        super(name, description);
+        this.damage = damage;
+        this.damageRange = damageRange;
+        this.ammo = 0;
+    }
 
     @Override
     public double getDamage() {

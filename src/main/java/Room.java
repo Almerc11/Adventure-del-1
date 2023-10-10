@@ -10,6 +10,7 @@ public class Room {
     private Room south;
     private Room north;
     private ArrayList<Item> itemList;
+    private ArrayList<Enemy> enemies;
 
 
 
@@ -22,7 +23,7 @@ public class Room {
         this.north = null;
         this.south = null;
         this.itemList = new ArrayList<>();
-        this.foodList = new ArrayList<>();
+        this.enemies = new ArrayList<>();
 
     }
 
@@ -66,12 +67,12 @@ public class Room {
         return item;
     }
 
-    public Item createMeleeWeapon(String name, String description, double damage, double damageRange){
+    public Weapon createMeleeWeapon(String name, String description, double damage, double damageRange){
         Weapon meleeWeapon = new MeleeWeapon(name, description, damage, damageRange);
         return meleeWeapon;
     }
 
-    public Item createRangedWeapon(String name, String description, double damage, double damageRange, int ammo){
+    public Weapon createRangedWeapon(String name, String description, double damage, double damageRange, int ammo){
         Weapon rangedWeapon = new RangedWeapon(name, description, damage, damageRange, ammo);
         return rangedWeapon;
     }
@@ -82,18 +83,20 @@ public class Room {
     }
 
     public void addItem(Item item){
-
         itemList.add(item);
     }
     public ArrayList<Item> getItemList(){
-
         return itemList;
     }
 
-    private ArrayList<Food> foodList;
-    public void addFood(Food food) {
-        foodList.add(food);
+    public Enemy createEnemy(String name, String description, int health, Weapon enemyEquippedWeapon){
+        Enemy enemy = new Enemy(name, description, health, enemyEquippedWeapon);
+        return enemy;
     }
-
-
+    public void addEnemy(Enemy enemy){
+        enemies.add(enemy);
+    }
+    public ArrayList<Enemy> getEnemyList(){
+        return enemies;
+    }
 }
