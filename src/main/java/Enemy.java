@@ -28,7 +28,7 @@ public class Enemy {
         return weapon;
     }
 
-   /* Skal lige kigges på engang mere
+    //Skal lige kigges på engang mere
 
    public void attack(Player player) {
 
@@ -41,23 +41,25 @@ public class Enemy {
         if (damage > 0) {
             health -= damage;
             if (health <= 0) {
-                die();
+               // die();
 
             }
         }
     }
 
-    private void die() {
+   /* private void die() {
         System.out.println(name + " is defeated!");
         // Drop enemy's weapon in the current room
         getCurrentRoom().addItem(weapon);
         // Remove the enemy from the room's list of enemies
         getCurrentRoom().removeEnemy(this);
     }
-private Room getCurrentRoom(){
-     // implementeres i room klassen
-}
+//private Room getCurrentRoom() {
+    // implementeres i room klassen
+
+    */
+
 }
 
-    .*/
+
 
