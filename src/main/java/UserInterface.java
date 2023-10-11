@@ -1,6 +1,4 @@
 import items.Item;
-import items.MeleeWeapon;
-import items.Weapon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -129,7 +127,10 @@ public class UserInterface {
         System.out.println("Exit: Closes the game.");
     }
 
-    public void userChoices(){
+    public void userChoices( boolean enemiesInRoom){
+        if(enemiesInRoom){
+            System.out.println("Do you wish to initiate combat?");
+        }
         System.out.println("What do you do?");
     }
     public void eatMessage(){
@@ -157,5 +158,8 @@ public class UserInterface {
     }
     public void printWeaponsInInventory(String weaponName, String weaponDescription, double weaponDamage){
         System.out.println(weaponName + " " + weaponDescription + " " + weaponDamage + " damage");
+    }
+    public void printEnemies(String enemyName, String enemyDescription){
+        System.out.println("A " + enemyName + ", " +  enemyDescription);
     }
 }

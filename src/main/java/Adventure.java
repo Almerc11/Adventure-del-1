@@ -3,9 +3,8 @@ import items.Item;
 import java.util.ArrayList;
 
 public class Adventure {
-
-    UserInterface UI = new UserInterface();
-    Map map;
+    private UserInterface UI = new UserInterface();
+    private Map map;
     public Adventure() {
         map = new Map();
     }
@@ -19,22 +18,26 @@ public class Adventure {
             if(player.getCurrentRoom() == map.getRoom5()){
                 UI.giveEndMessage(player.getCurrentRoom().getDescription());
                 gameIsRunning = false;
-                break;
             } else if(player.getExitGame() == true){
                 gameIsRunning = false;
+            } else if(player.getInCombatIndication()){
+                player.combatSequence();
             } else {
                 UI.giveNormalStartMessage(player.getStartRoomName(), player.getStartRoomDescription());
+                player.printEnemies();
                 player.searchForItemsInCurrentRoom();
-                UI.userChoices();
+                UI.userChoices(player.setEnemiesInRoom());
                 String userChoice = UI.setUserInput().toLowerCase();
                 player.playerChoices(this, userChoice);
             }
         }
     }
+
     public Room getStartRoomFromMap(){
         return map.getStartRoom();
     }
 
+    // Print statements from UI
     public void giveNoItemMessageFromUI(){
         UI.noItems();
     }
@@ -92,7 +95,7 @@ public class Adventure {
         UI.showItems(itemName, itemDescription);
     }
     public String giveUserChoiceGeneralFromUI(){
-        return UI.userChoiceGeneral();
+        return UI.userChoiceGeneral().toLowerCase();
     }
 
     public void printRemovableItemListFromUI(){
@@ -139,6 +142,9 @@ public class Adventure {
         UI.printWeaponsInInventory(weaponName, weaponDescription, weaponDamage);
     }
 
+    public void giveEnemiesMessageFromUI(String enemyName, String enemyDescription){
+        UI.printEnemies(enemyName, enemyDescription);
+    }
 
 }
 
