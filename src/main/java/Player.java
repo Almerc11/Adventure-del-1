@@ -327,7 +327,7 @@ public class Player {
             String userCombatChoices = adventure.giveUserChoiceGeneralFromUI().toLowerCase();
 
             if (userCombatChoices.equals("eat")) {
-                System.out.println("I eat");
+                eat(userCombatChoices);
                 enemyAttacks(currentRoom.getEnemyInList());
             } else if (userCombatChoices.equals("attack")) {
                 if(equippedWeapon instanceof MeleeWeapon){

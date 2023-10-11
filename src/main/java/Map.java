@@ -36,8 +36,8 @@ public class Map {
         room2.setEast(room3);
         room2.addItem(room1.createItem("Torch", "A torch giving light"));
         room2.addItem(room1.createFood("Bread", "A piece of luke warm bread", 5));
-        room2.addEnemy(room2.createEnemy("Banshee", "A pale looking woman, known for her wide eyes and wicked smile", 15, room2.createRangedWeapon("Staff", "A staff that shoots ice bolts", 8, 16.0, 0)));
-        room2.addEnemy(room2.createEnemy("Banshee", "A pale looking woman, known for her wide eyes and wicked smile", 15, room2.createRangedWeapon("Staff", "A staff that shoots ice bolts", 8, 16.0, 0)));
+        room2.addEnemy(room2.createEnemy("Banshee", "A pale looking woman, known for her wide eyes and wicked smile", 15, room2.createRangedWeapon("Staff", "A staff that shoots ice bolts", 8, 16.0, 3)));
+        room2.addEnemy(room2.createEnemy("Banshee", "A pale looking woman, known for her wide eyes and wicked smile", 15, room2.createRangedWeapon("Staff", "A staff that shoots ice bolts", 8, 16.0, 3)));
 
 
         room3.setWest(room2);
