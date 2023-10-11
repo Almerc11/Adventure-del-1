@@ -1,16 +1,16 @@
 package items;
 
 public class MeleeWeapon extends Weapon{
-    private double damage;
+    private int damage;
     private double damageRange;
-    public MeleeWeapon(String name, String description, double damage, double damageRange) {
+    public MeleeWeapon(String name, String description, int damage, double damageRange) {
         super(name, description);
         this.damage = damage;
         this.damageRange = damageRange;
     }
 
     @Override
-    public double getDamage() {
+    public int getDamage() {
         return damage;
     }
 

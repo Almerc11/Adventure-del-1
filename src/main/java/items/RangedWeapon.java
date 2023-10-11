@@ -1,24 +1,19 @@
 package items;
 
 public class RangedWeapon extends Weapon{
-    private double damage;
-    private int ammo;
+    private int damage;
+    private final int maxAmmo;
     private double damageRange;
-    public RangedWeapon(String name, String description, double damage, double damageRange, int ammo) {
+    private int currentAmmo = 0;
+    public RangedWeapon(String name, String description, int damage, double damageRange, int maxAmmo) {
         super(name, description);
         this.damage = damage;
         this.damageRange = damageRange;
-        this.ammo = ammo;
-    }
-    public RangedWeapon(String name, String description, double damage, double damageRange) {
-        super(name, description);
-        this.damage = damage;
-        this.damageRange = damageRange;
-        this.ammo = 0;
+        this.maxAmmo = maxAmmo;
     }
 
     @Override
-    public double getDamage() {
+    public int getDamage() {
         return damage;
     }
 
@@ -26,8 +21,19 @@ public class RangedWeapon extends Weapon{
         return damageRange;
     }
 
-    public int getAmmo(){
-        return ammo;
+    public int getmaxAmmo(){
+        return maxAmmo;
     }
 
+    public int getCurrentAmmo() {
+        return currentAmmo;
+    }
+
+    public void reloadAmmo() {
+        currentAmmo = maxAmmo;
+    }
+
+    public void useAmmo() {
+        currentAmmo--;
+    }
 }

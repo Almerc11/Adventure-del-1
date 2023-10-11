@@ -67,12 +67,12 @@ public class Room {
         return item;
     }
 
-    public Weapon createMeleeWeapon(String name, String description, double damage, double damageRange){
+    public Weapon createMeleeWeapon(String name, String description, int damage, double damageRange){
         Weapon meleeWeapon = new MeleeWeapon(name, description, damage, damageRange);
         return meleeWeapon;
     }
 
-    public Weapon createRangedWeapon(String name, String description, double damage, double damageRange, int ammo){
+    public Weapon createRangedWeapon(String name, String description, int damage, double damageRange, int ammo){
         Weapon rangedWeapon = new RangedWeapon(name, description, damage, damageRange, ammo);
         return rangedWeapon;
     }
