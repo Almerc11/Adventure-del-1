@@ -99,4 +99,12 @@ public class Room {
     public ArrayList<Enemy> getEnemyList(){
         return enemies;
     }
+
+    public Enemy getEnemyInList(){
+        Enemy enemyToBeReturned = null;
+        for(Enemy enemy : enemies){
+            enemyToBeReturned = enemy;
+        }
+        return enemyToBeReturned;
+    }
 }

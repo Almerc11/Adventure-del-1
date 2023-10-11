@@ -19,9 +19,10 @@ public class Adventure {
             if(player.getCurrentRoom() == map.getRoom5()){
                 UI.giveEndMessage(player.getCurrentRoom().getDescription());
                 gameIsRunning = false;
-                break;
             } else if(player.getExitGame() == true){
                 gameIsRunning = false;
+            } else if(player.getInCombatIndication()){
+                player.combatSequence();
             } else {
                 UI.giveNormalStartMessage(player.getStartRoomName(), player.getStartRoomDescription());
                 player.searchForItemsInCurrentRoom();

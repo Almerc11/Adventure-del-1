@@ -6,9 +6,10 @@ public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
     private Adventure adventure;
-    int health = 90;
+    private int health = 100;
     private boolean exitGame;
     private Weapon equippedWeapon = null;
+    private boolean inCombat = false;
 
     public Player(Adventure adventure) {
         this.adventure = adventure;
@@ -45,7 +46,13 @@ public class Player {
 
         equipWeapon(userChoice);
 
-        attack(userChoice);
+        if(!currentRoom.getEnemyList().isEmpty()){
+            System.out.println("There is a " + currentRoom.getEnemyInList().getName() + " do you wish to attack?");
+            combat(userChoice);
+        } else {
+            combat(userChoice);
+        }
+
     }
 
     public void showHealth(String userChoice){
@@ -65,10 +72,17 @@ public class Player {
         }
     }
 
+
     public boolean getExitGame(){
         return exitGame;
     }
+    public boolean getInCombatIndication(){
+        return inCombat;
+    }
 
+    public void setCombat(){
+        inCombat = true;
+    }
 
     public void addItemToInventory(Item item) {
         inventory.add(item);
@@ -178,16 +192,16 @@ public class Player {
         }
     }
 
-    public void attack(String userChoice){
-        if(userChoice.equals("attack")){
+    public void attack(){
             if(equippedWeapon != null){
-                if(equippedWeapon instanceof MeleeWeapon || equippedWeapon instanceof RangedWeapon) {
+                if(equippedWeapon instanceof MeleeWeapon) {
                     adventure.giveAttackMessageFromUI(equippedWeapon.getDamage(), ((MeleeWeapon) equippedWeapon).getDamageRange());
+                } else if (equippedWeapon instanceof RangedWeapon){
+                    adventure.giveAttackMessageFromUI(equippedWeapon.getDamage(), ((RangedWeapon) equippedWeapon).getDamageRange());
                 }
             } else {
                 adventure.giveAttackErrorFromUI();
             }
-        }
     }
 
     public void playUserInventoryManagement(Adventure adventure, String userChoice) {
@@ -254,6 +268,38 @@ public class Player {
         }
         if(currentRoom.getWest() != null){
             adventure.getLookForWestFromUI();
+        }
+    }
+    public void combat(String userChoice) {
+        if (userChoice.equals("attack")) {
+            if(equippedWeapon != null) {
+                if (!currentRoom.getEnemyList().isEmpty()) {
+                    setCombat();
+                } else {
+                    attack();
+                }
+            } else {
+                System.out.println("You do not have a weapon equipped");
+            }
+        }
+    }
+
+    public void combatSequence(){
+        String userCombatChoices = adventure.giveUserChoiceGeneralFromUI().toLowerCase();
+
+        if(userCombatChoices.equals("eat")){
+            System.out.println("I eat");
+        } else if(userCombatChoices.equals("attack")){
+            if(equippedWeapon != null){
+                System.out.println("I attack");
+            } else {
+                System.out.println("la'vær");
+            }
+        } else if (userCombatChoices.equals("reload")){
+            System.out.println("I reload");
+        } else if(userCombatChoices.equals("flee")){
+            System.out.println("I flee");
+            inCombat = false;
         }
     }
 }
