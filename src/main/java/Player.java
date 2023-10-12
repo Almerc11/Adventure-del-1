@@ -255,5 +255,22 @@ public class Player {
         if(currentRoom.getWest() != null){
             adventure.getLookForWestFromUI();
         }
+
+        public void attackWithRangedWeapon() {
+            // vi tjekker først om spilleren har et rangedweapon og om vi har ammo tilbage. Hvis begge er sande udføres angrebet.
+            if (rangedWeapon != null && rangedWeapon.getCurrentAmmo() > 0) {
+
+                // Derefter får spilleren feedback om at de bruger deres ranged weapon til et angreb.
+                System.out.println("You use your " + rangedWeapon.getName() + " to attack.");
+
+                rangedWeapon.useAmmo();
+                // Implementer resten af angrebslogikken her?
+
+            } else if (rangedWeapon != null) {
+                System.out.println("No ammo left for your " + rangedWeapon.getName() + ".");
+                }
+
+            }
+        }
     }
 }
