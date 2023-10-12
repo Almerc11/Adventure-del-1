@@ -1,4 +1,5 @@
 import items.Item;
+import items.RangedWeapon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -162,4 +163,75 @@ public class UserInterface {
     public void printEnemies(String enemyName, String enemyDescription){
         System.out.println("A " + enemyName + ", " +  enemyDescription);
     }
+
+    public void playerCriticalAttackMessage(){
+        System.out.println("You attack with a critical strike!");
+    }
+
+    public void playerMissedMessage(){
+        System.out.println("You missed the enemy");
+    }
+
+    public void playerNormalAttackMessage(int damage, String weaponName){
+        System.out.println("You swing your "  + weaponName + " with a damage value of: " + damage);
+    }
+
+    public void playerNormalAttackRangedMessage(int damage){
+        System.out.println("You shoot with a damage value of: " + damage);
+    }
+
+    public void playerMissedRangedMessage(){
+        System.out.println("Your shot missed the enemy");
+    }
+
+    public void reloadMessage(){
+        System.out.println("You need to reload your weapon!");
+    }
+    public void enemyNormalAttackMessage(int damage){
+        System.out.println("The enemy attacks with a damage value of: " + damage);
+    }
+    public void enemyMissedAttackMessage(){
+        System.out.println();
+        System.out.println("You dodged the enemy's attack");
+    }
+    public void attemptToFleeMessage(){
+        System.out.println("You attempted to flee, but was unsuccesfull");
+    }
+    public void fleeSuccessfullMessage(){
+        System.out.println("You flee the battle");
+    }
+    public void outOfFleeAttempts(){
+        System.out.println("You cannot attempt to flee anymore");
+    }
+    public void enemyCriticalAttackMessage(){
+        System.out.println("Enemy attacks with a critical strike!");
+    }
+
+    public void meleeWeaponCantReloadMessage(){
+        System.out.println("Your weapon is a melee weapon, and can therefor not be reloaded!");
+    }
+    public void reloadedWeaponMessage(){
+        System.out.println("You reloaded your weapon!");
+    }
+    public void maxAmmoLoaded(){
+        System.out.println("Your weapon already has the max ammo loaded!");
+    }
+    public void weaponAmmoCountMessage(int ammo){
+        System.out.println("Your weapon currently have: " + ammo + " ammo loaded");
+    }
+    public void playerDiedMessage(){
+        System.out.println("You died, game over");
+    }
+    public void enemyDefeatedMessage(){
+        System.out.println("You have defeated the enemy");
+    }
+    public void noWeaponEquippedMessage(){
+        System.out.println("You do not have a weapon equipped");
+    }
+
+    public void displayEnemyHealthAndPlayerHealth(String enemyName, int enemyHealth, int playerHealth){
+        System.out.println();
+        System.out.println(enemyName + ": " + enemyHealth + " || Player: " + playerHealth);
+    }
+
 }

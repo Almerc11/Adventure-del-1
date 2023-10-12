@@ -67,6 +67,7 @@ public class Map {
 
         room9.setNorth(room6);
         room9.setWest(room8);
+        room9.addEnemy(room9.createEnemy("The devil", "The devil himself!", 80, room9.createMeleeWeapon("Sword of heaven and hell", "An unholy sword stolen from the high heavens", 40, 1.3)));
         room9.addItem(room9.createFood("Health potion", "A health potion that replenishes your wounds", 30));
         room9.addItem(room9.createFood("Health potion", "A health potion that replenishes your wounds", 30));
     }

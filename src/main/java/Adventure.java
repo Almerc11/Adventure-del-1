@@ -165,6 +165,73 @@ public class Adventure {
         UI.printEnemies(enemyName, enemyDescription);
     }
 
+    public void givePlayerCriticalAttackMessageFromUI(){
+        UI.playerCriticalAttackMessage();
+    }
+
+    public void givePlayerMissedMessageFromUI(){
+        UI.playerMissedMessage();
+    }
+
+    public void givePlayerNormalAttackMessageFromUI(int damage, String weaponName){
+        UI.playerNormalAttackMessage(damage, weaponName);
+    }
+
+    public void givePlayerNormalRangedAttackMessageFromUI(int damage){
+        UI.playerNormalAttackRangedMessage(damage);
+    }
+
+    public void givePlayerMissedRangedMessageFromUI(){
+        UI.playerMissedRangedMessage();
+    }
+
+    public void giveReloadMessageFromUI(){
+        UI.reloadMessage();
+    }
+    public void giveEnemyNormalAttackMessageFromUI(int damage){
+        UI.enemyNormalAttackMessage(damage);
+    }
+    public void giveEnemyMissedAttackMessageFromUI(){
+        UI.enemyMissedAttackMessage();
+    }
+    public void giveEnemyCriticalAttackMessageFromUI(){
+        UI.enemyCriticalAttackMessage();
+    }
+    public void giveFleeSuccessfullMessageFromUI(){
+        UI.fleeSuccessfullMessage();
+    }
+    public void giveAttemptToFleeMessageFromUI(){
+        UI.attemptToFleeMessage();
+    }
+    public void giveOutOfFleeAttemptsFromUI(){
+        UI.outOfFleeAttempts();
+    }
+    public void givemeleeWeaponCantReloadMessageFromUI(){
+        UI.meleeWeaponCantReloadMessage();
+    }
+    public void giveReloadedWeaponMessageFromUI(){
+        UI.reloadedWeaponMessage();
+    }
+    public void giveMaxAmmoLoadedMessageFromUI(){
+        UI.maxAmmoLoaded();
+    }
+    public void giveWeaponAmmoCountMessageFromUI(int ammo){
+        UI.weaponAmmoCountMessage(ammo);
+    }
+    public void givePlayerDiedMessageFromUI(){
+        UI.playerDiedMessage();
+    }
+    public void giveEnemyDefeatedMessageFromUI(){
+        UI.enemyDefeatedMessage();
+    }
+    public void giveNoWeaponEquippedMessageFromUI(){
+        UI.noWeaponEquippedMessage();
+    }
+    public void giveDisplayHealthFromUI(String enemyName, int enemyHealth, int playerHealth){
+        UI.displayEnemyHealthAndPlayerHealth(enemyName, enemyHealth, playerHealth);
+    }
+
+
 }
 
 
