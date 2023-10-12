@@ -135,10 +135,19 @@ public class UserInterface {
         System.out.println("Take: Takes an item from the inventory.");
         System.out.println("Drop: Drops one item from your inventory.");
         System.out.println("Show: Shows the items currently in your inventory.");
+        System.out.println("Eat: Choose to eat an item");
+        System.out.println("Equip: Choose to equip an weapon/item");
         System.out.println("Exit: Closes the game.");
         System.out.println();
+        System.out.println("Combat mode options");
+        System.out.println();
+        System.out.println("Attack: Choose to attack an enemy");
+        System.out.println("Reload:Choose to reload your current weapon");
+        System.out.println("Health: Gives player health status");
+        System.out.println("Flee: Gives the player an option to flee");
+
     }
-    //mangler flee,combat,health attack, reload, equip, eat
+
 
     public void userChoices( boolean enemiesInRoom){
         if(enemiesInRoom){
