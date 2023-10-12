@@ -18,7 +18,8 @@ public class Adventure {
         Player player = new Player(this);
         player.createCurrentRoom();
         boolean gameIsRunning = true;
-        backGroundMusic("C:\\Users\\emila\\Intellij projects\\Adventure-del-1\\src\\main\\java\\music\\backGroundMusic.wav");
+        //backGroundMusic("C:\\Users\\emila\\Intellij projects\\Adventure-del-1\\src\\main\\java\\music\\backGroundMusic.wav");
+        backGroundMusic("C:\\Users\\emila\\IntelliJ projects\\KEA\\Første Semester\\Adventure-del-1\\src\\main\\java\\music\\backGroundMusic.wav");
         while(gameIsRunning) {
             if(player.getCurrentRoom() == map.getRoom5()){
                 UI.giveEndMessage(player.getCurrentRoom().getDescription());
