@@ -28,6 +28,7 @@ public class Map {
 
         room1.setEast(room2);
         room1.setSouth(room4);
+        room1.addItem(room1.createRangedWeapon("bow", "Just a rusty bow", 6, 8.5, 5));
         Item crystal = room1.createItem("Crystal", "A crystal that glows red");
         room1.addItem(crystal);
 
@@ -35,12 +36,14 @@ public class Map {
         room2.setEast(room3);
         room2.addItem(room1.createItem("Torch", "A torch giving light"));
         room2.addItem(room1.createFood("Bread", "A piece of luke warm bread", 5));
-        room2.addEnemy(room2.createEnemy("Banshee", "A pale looking woman, known for her wide eyes and wicked smile", 15, room2.createRangedWeapon("Staff", "A staff that shoots ice bolts", 8, 16.0, 0)));
+        room2.addEnemy(room2.createEnemy("Banshee", "A pale looking woman, known for her wide eyes and wicked smile", 15, room2.createRangedWeapon("Staff", "A staff that shoots ice bolts", 8, 16.0, 3)));
+        room2.addEnemy(room2.createEnemy("Banshee", "A pale looking woman, known for her wide eyes and wicked smile", 15, room2.createRangedWeapon("Staff", "A staff that shoots ice bolts", 8, 16.0, 3)));
+
 
         room3.setWest(room2);
         room3.setSouth(room6);
         room3.addItem(room3.createItem("Book", "A book containing ancient spells"));
-        room3.addItem(room3.createMeleeWeapon("Sword of Justice", "A golden sword, gleaming with blue diamonds on each side of the blade", 10.5,1.3));
+        room3.addItem(room3.createMeleeWeapon("Sword of Justice", "A golden sword, gleaming with blue diamonds on each side of the blade", 10,1.3));
 
         room4.setNorth(room1);
         room4.setSouth(room7);

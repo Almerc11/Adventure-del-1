@@ -1,21 +1,19 @@
 package items;
 
 public class RangedWeapon extends Weapon{
-    private double damage;
+    private int damage;
+    private final int maxAmmo;
     private double damageRange;
-    private int maxAmmo;
-    private int currentAmmo;
-
-    public RangedWeapon(String name, String description, double damage, double damageRange, int maxAmmo) {
+    private int currentAmmo = 0;
+    public RangedWeapon(String name, String description, int damage, double damageRange, int maxAmmo) {
         super(name, description);
         this.damage = damage;
         this.damageRange = damageRange;
         this.maxAmmo = maxAmmo;
-        this.currentAmmo = maxAmmo; //vi starter med max ammo
     }
 
     @Override
-    public double getDamage() {
+    public int getDamage() {
         return damage;
     }
 
@@ -23,7 +21,7 @@ public class RangedWeapon extends Weapon{
         return damageRange;
     }
 
-    public int getMaxAmmo() {
+    public int getmaxAmmo(){
         return maxAmmo;
     }
 
@@ -36,12 +34,6 @@ public class RangedWeapon extends Weapon{
     }
 
     public void useAmmo() {
-      if (currentAmmo > 0) {
-          currentAmmo--;
-      }else{
-          System.out.println("No ammo left");
-
-          //prøvede at udskifte void i stedet for boolean
-      }
+        currentAmmo--;
     }
 }

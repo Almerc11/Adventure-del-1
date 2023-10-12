@@ -1,11 +1,14 @@
 import items.Item;
 
 import java.util.ArrayList;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Adventure {
-
-    UserInterface UI = new UserInterface();
-    Map map;
+    private UserInterface UI = new UserInterface();
+    private Map map;
+    private Clip backgroundMusicClip;
     public Adventure() {
         map = new Map();
     }
@@ -15,26 +18,45 @@ public class Adventure {
         Player player = new Player(this);
         player.createCurrentRoom();
         boolean gameIsRunning = true;
+        //backGroundMusic("C:\\Users\\emila\\Intellij projects\\Adventure-del-1\\src\\main\\java\\music\\backGroundMusic.wav");
+        backGroundMusic("C:\\Users\\emila\\IntelliJ projects\\KEA\\Første Semester\\Adventure-del-1\\src\\main\\java\\music\\backGroundMusic.wav");
         while(gameIsRunning) {
             if(player.getCurrentRoom() == map.getRoom5()){
                 UI.giveEndMessage(player.getCurrentRoom().getDescription());
                 gameIsRunning = false;
-                break;
             } else if(player.getExitGame() == true){
                 gameIsRunning = false;
+            } else if(player.getInCombatIndication()){
+                player.combatSequence();
             } else {
                 UI.giveNormalStartMessage(player.getStartRoomName(), player.getStartRoomDescription());
+                player.printEnemies();
                 player.searchForItemsInCurrentRoom();
-                UI.userChoices();
+                UI.userChoices(player.setEnemiesInRoom());
                 String userChoice = UI.setUserInput().toLowerCase();
                 player.playerChoices(this, userChoice);
             }
         }
     }
+
+    public void backGroundMusic(String musicFilePath){
+        try{
+            File audioFile = new File(musicFilePath);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+            backgroundMusicClip = AudioSystem.getClip();
+            backgroundMusicClip.open(audioInputStream);
+            backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+            backgroundMusicClip.start();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public Room getStartRoomFromMap(){
         return map.getStartRoom();
     }
 
+    // Print statements from UI
     public void giveNoItemMessageFromUI(){
         UI.noItems();
     }
@@ -92,7 +114,7 @@ public class Adventure {
         UI.showItems(itemName, itemDescription);
     }
     public String giveUserChoiceGeneralFromUI(){
-        return UI.userChoiceGeneral();
+        return UI.userChoiceGeneral().toLowerCase();
     }
 
     public void printRemovableItemListFromUI(){
@@ -139,6 +161,9 @@ public class Adventure {
         UI.printWeaponsInInventory(weaponName, weaponDescription, weaponDamage);
     }
 
+    public void giveEnemiesMessageFromUI(String enemyName, String enemyDescription){
+        UI.printEnemies(enemyName, enemyDescription);
+    }
 
 }
 
