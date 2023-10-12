@@ -6,7 +6,8 @@ public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory;
     private Adventure adventure;
-    private int health = 100;
+    private final int fullHealth = 100;
+    private int health = fullHealth;
     private boolean exitGame;
     private Weapon equippedWeapon = null;
     private boolean inCombat = false;
@@ -18,19 +19,19 @@ public class Player {
         this.inventory = new ArrayList<>();
     }
 
-    public void showInventory(){
-            int count = 0;
-            for(Item item : inventory){
+    public void showInventory() {
+        int count = 0;
+        for (Item item : inventory) {
             count++;
             adventure.giveShowInventoryFromUI(item.getName(), item.getDescription(), count);
         }
     }
 
-    public void createCurrentRoom(){
+    public void createCurrentRoom() {
         this.currentRoom = adventure.getStartRoomFromMap();
     }
 
-    public void playerChoices(Adventure adventure ,String userChoice) {
+    public void playerChoices(Adventure adventure, String userChoice) {
 
         playUserDirections(adventure, userChoice);
 
@@ -48,7 +49,7 @@ public class Player {
 
         equipWeapon(userChoice);
 
-        if(!currentRoom.getEnemyList().isEmpty()){
+        if (!currentRoom.getEnemyList().isEmpty()) {
             combat(userChoice);
         } else {
             combat(userChoice);
@@ -56,21 +57,21 @@ public class Player {
 
     }
 
-    public boolean setEnemiesInRoom(){
-        if(!currentRoom.getEnemyList().isEmpty()){
+    public boolean setEnemiesInRoom() {
+        if (!currentRoom.getEnemyList().isEmpty()) {
             enemiesInRoom = true;
         }
         return enemiesInRoom;
     }
 
-    public void printEnemies(){
-        for(Enemy enemy : currentRoom.getEnemyList()){
+    public void printEnemies() {
+        for (Enemy enemy : currentRoom.getEnemyList()) {
             adventure.giveEnemiesMessageFromUI(enemy.getName(), enemy.getDescription());
         }
     }
 
-    public void showHealth(String userChoice){
-        if(userChoice.equals("health")){
+    public void showHealth(String userChoice) {
+        if (userChoice.equals("health")) {
             adventure.giveHealthStatusMessageFromUI(health);
         }
     }
@@ -78,23 +79,25 @@ public class Player {
     public Room getCurrentRoom() {
         return currentRoom;
     }
-    public void setExitGame(String userChoice){
+
+    public void setExitGame(String userChoice) {
         this.exitGame = false;
-        if(userChoice.contains("exit")){
+        if (userChoice.contains("exit")) {
             exitGame = true;
         }
     }
 
 
-    public boolean getExitGame(){
+    public boolean getExitGame() {
         return exitGame;
     }
-    public boolean getInCombatIndication(){
+
+    public boolean getInCombatIndication() {
         return inCombat;
     }
 
-    public void setCombat(){
-        if(inCombat){
+    public void setCombat() {
+        if (inCombat) {
             inCombat = false;
         } else {
             inCombat = true;
@@ -104,55 +107,68 @@ public class Player {
     public void addItemToInventory(Item item) {
         inventory.add(item);
     }
-    public void playerHealthDecrese(int damage){
+
+    public void playerHealthDecrese(int damage) {
         this.health = health - damage;
     }
 
-    public void removeItemFromInventory(String userChoice, Adventure adventure){
-        if(userChoice.contains("drop")){
-             if(!inventory.isEmpty()){
-                 adventure.printRemovableItemListFromUI();
-                 for(Item item : inventory){
-                     adventure.giveShowItemsFromUI(item.getName(), item.getDescription());
-                 }
-                 String itemToBeRemoved = adventure.giveUserChoiceGeneralFromUI().toLowerCase();
-                 for(Item item : inventory){
-                    if(item.getName().toLowerCase().equals(itemToBeRemoved)){
-                    inventory.remove(item);
-                    currentRoom.getItemList().add(item);
-                    adventure.giveRemovedItemMessageFromUI(item.getName());
-                    break;
+    public void removeItemFromInventory(String userChoice, Adventure adventure) {
+        if (userChoice.contains("drop")) {
+            if (!inventory.isEmpty()) {
+                adventure.printRemovableItemListFromUI();
+                for (Item item : inventory) {
+                    adventure.giveShowItemsFromUI(item.getName(), item.getDescription());
+                }
+                String itemToBeRemoved = adventure.giveUserChoiceGeneralFromUI().toLowerCase();
+                for (Item item : inventory) {
+                    if (item.getName().toLowerCase().equals(itemToBeRemoved)) {
+                        inventory.remove(item);
+                        currentRoom.getItemList().add(item);
+                        adventure.giveRemovedItemMessageFromUI(item.getName());
+                        break;
                     }
                 }
-             } else {
-                 adventure.giveNoItemsErrorFromUI();
-             }
+            } else {
+                adventure.giveNoItemsErrorFromUI();
+            }
         }
     }
 
-    public void eat(String userChoice){
+    public void eat(String userChoice) {
         Item foodToBeRemoved = null;
-        if(userChoice.equals("eat")){
-        adventure.giveEatMessageFromUI();
-        for(Item item : inventory){
-            if(item instanceof Food){
-                adventure.giveSecondEatMessageFromUI(item.getName(), item.getDescription(), ((Food) item).getHealthAddition());
-            }
-        }
-
-        String foodToBeEaten = adventure.giveUserChoiceGeneralFromUI();
-        for(Item item : inventory) {
-            if (item instanceof Food) {
-                if (item.getName().toLowerCase().equals(foodToBeEaten)){
-                    health = ((Food) item).getHealthAddition() + health;
-                    foodToBeRemoved = item;
-                    break;
+        int restoredHealth = 0;
+        if (userChoice.equals("eat")) {
+            adventure.giveEatMessageFromUI();
+            for (Item item : inventory) {
+                if (item instanceof Food) {
+                    adventure.giveSecondEatMessageFromUI(item.getName(), item.getDescription(), ((Food) item).getHealthAddition());
                 }
             }
-        }
-        if(foodToBeRemoved != null){
-            inventory.remove(foodToBeRemoved);
-        }
+
+            String foodToBeEaten = adventure.giveUserChoiceGeneralFromUI();
+            if (health < fullHealth) {
+                for (Item item : inventory) {
+                    if (item instanceof Food) {
+                        if (item.getName().toLowerCase().equals(foodToBeEaten)) {
+
+                            if(health < fullHealth){
+                                restoredHealth = ((Food) item).getHealthAddition() + health;
+                                health = restoredHealth;
+                            }
+                            if(restoredHealth > fullHealth){
+                                health = fullHealth;
+                            }
+                            foodToBeRemoved = item;
+                            break;
+                        }
+                    }
+                }
+                if (foodToBeRemoved != null) {
+                    inventory.remove(foodToBeRemoved);
+                }
+            } else {
+                System.out.println("You are already at full health!");
+            }
         }
     }
 
@@ -188,16 +204,16 @@ public class Player {
         }
     }
 
-    public void equipWeapon(String userChoice){
-        if(userChoice.equals("equip")){
-            if(!inventory.isEmpty()) {
-                for(Item item : inventory){
-                    if(item instanceof Weapon){
+    public void equipWeapon(String userChoice) {
+        if (userChoice.equals("equip")) {
+            if (!inventory.isEmpty()) {
+                for (Item item : inventory) {
+                    if (item instanceof Weapon) {
                         adventure.printWeaponsInInventoryMessageFromUI(item.getName(), item.getDescription(), ((Weapon) item).getDamage());
                     }
                 }
                 String weaponToBeEquipped = adventure.giveUserChoiceGeneralFromUI();
-                for(Item item : inventory) {
+                for (Item item : inventory) {
                     if (item instanceof Weapon) {
                         if (item.getName().toLowerCase().equals(weaponToBeEquipped)) {
                             equippedWeapon = (Weapon) item;
@@ -212,16 +228,16 @@ public class Player {
         }
     }
 
-    public void attack(){
-            if(equippedWeapon != null){
-                if(equippedWeapon instanceof MeleeWeapon) {
-                    adventure.giveAttackMessageFromUI(equippedWeapon.getDamage(), ((MeleeWeapon) equippedWeapon).getDamageRange());
-                } else if (equippedWeapon instanceof RangedWeapon){
-                    adventure.giveAttackMessageFromUI(equippedWeapon.getDamage(), ((RangedWeapon) equippedWeapon).getDamageRange());
-                }
-            } else {
-                adventure.giveAttackErrorFromUI();
+    public void attack() {
+        if (equippedWeapon != null) {
+            if (equippedWeapon instanceof MeleeWeapon) {
+                adventure.giveAttackMessageFromUI(equippedWeapon.getDamage(), ((MeleeWeapon) equippedWeapon).getDamageRange());
+            } else if (equippedWeapon instanceof RangedWeapon) {
+                adventure.giveAttackMessageFromUI(equippedWeapon.getDamage(), ((RangedWeapon) equippedWeapon).getDamageRange());
             }
+        } else {
+            adventure.giveAttackErrorFromUI();
+        }
     }
 
     public void playUserInventoryManagement(Adventure adventure, String userChoice) {
@@ -247,23 +263,23 @@ public class Player {
         }
     }
 
-    public void givePlayerHelp(Adventure adventure, String userChoice){
+    public void givePlayerHelp(Adventure adventure, String userChoice) {
         if (userChoice.contains("help")) {
             adventure.helpFromUI();
         }
     }
 
-    public String getStartRoomName(){
+    public String getStartRoomName() {
         return currentRoom.getName();
     }
 
-    public String getStartRoomDescription(){
+    public String getStartRoomDescription() {
         return currentRoom.getDescription();
     }
 
-    public void searchForItems(){
-        if(!currentRoom.getItemList().isEmpty()){
-            for(Item item : currentRoom.getItemList()){
+    public void searchForItems() {
+        if (!currentRoom.getItemList().isEmpty()) {
+            for (Item item : currentRoom.getItemList()) {
                 adventure.giveItemPrintFromUI(item.getName());
             }
         } else {
@@ -271,27 +287,27 @@ public class Player {
         }
     }
 
-    public void searchForItemsInCurrentRoom(){
-        if(!currentRoom.getItemList().isEmpty()){
-            for(Item item : currentRoom.getItemList()){
+    public void searchForItemsInCurrentRoom() {
+        if (!currentRoom.getItemList().isEmpty()) {
+            for (Item item : currentRoom.getItemList()) {
                 adventure.giveItemPrintFromUI(item.getName());
             }
         } else {
-             adventure.noItemsInRoomErrorFromUI();
+            adventure.noItemsInRoomErrorFromUI();
         }
     }
 
-    public void lookForDoors(){
-        if(currentRoom.getNorth() != null){
+    public void lookForDoors() {
+        if (currentRoom.getNorth() != null) {
             adventure.getLookForNorthFromUI();
         }
-        if(currentRoom.getSouth() != null){
+        if (currentRoom.getSouth() != null) {
             adventure.getLookForSouthFromUI();
         }
-        if(currentRoom.getEast() != null){
+        if (currentRoom.getEast() != null) {
             adventure.getLookForEastFromUI();
         }
-        if(currentRoom.getWest() != null){
+        if (currentRoom.getWest() != null) {
             adventure.getLookForWestFromUI();
         }
 
@@ -300,31 +316,31 @@ public class Player {
             }
     public void combat(String userChoice) {
         if (userChoice.equals("combat")) {
-            if(equippedWeapon != null) {
+            if (equippedWeapon != null) {
                 if (!currentRoom.getEnemyList().isEmpty()) {
                     setCombat();
                 } else {
                     attack();
                 }
             } else {
-                System.out.println("You do not have a weapon equipped");
+                adventure.giveNoWeaponEquippedMessageFromUI();
             }
         }
     }
 
-    public void combatSequence(){
-        if(currentRoom.getEnemyInList().getHealth() <= 0){
-            System.out.println("You have defeated the enemy");
+    public void combatSequence() {
+        if (currentRoom.getEnemyInList().getHealth() <= 0) {
+            adventure.giveEnemyDefeatedMessageFromUI();
             setCombat();
             currentRoom.addItem(currentRoom.getEnemyInList().getEnemyEquippedWeapon());
             currentRoom.getEnemyList().remove(currentRoom.getEnemyInList());
-        } else if(health <= 0){
-            System.out.println("You died, game over");
+        } else if (health <= 0) {
+            adventure.givePlayerDiedMessageFromUI();
             exitGame = true;
         } else {
             displayEnemyAndPlayerHealth();
-            if(equippedWeapon instanceof RangedWeapon){
-                System.out.println("Your weapon currently have: " + ((RangedWeapon) equippedWeapon).getCurrentAmmo() + " ammo loaded");
+            if (equippedWeapon instanceof RangedWeapon) {
+                adventure.giveWeaponAmmoCountMessageFromUI(((RangedWeapon) equippedWeapon).getCurrentAmmo());
             }
             String userCombatChoices = adventure.giveUserChoiceGeneralFromUI().toLowerCase();
 
@@ -332,22 +348,22 @@ public class Player {
                 eat(userCombatChoices);
                 enemyAttacks(currentRoom.getEnemyInList());
             } else if (userCombatChoices.equals("attack")) {
-                if(equippedWeapon instanceof MeleeWeapon){
+                if (equippedWeapon instanceof MeleeWeapon) {
                     playerAttacksWithMelee(currentRoom.getEnemyInList());
-                } else if (equippedWeapon instanceof RangedWeapon){
+                } else if (equippedWeapon instanceof RangedWeapon) {
                     playerAttacksWithRangeWeapon(currentRoom.getEnemyInList());
                 }
                 enemyAttacks(currentRoom.getEnemyInList());
             } else if (userCombatChoices.equals("reload")) {
-                if(equippedWeapon instanceof RangedWeapon) {
-                    if(((RangedWeapon) equippedWeapon).getCurrentAmmo() == ((RangedWeapon) equippedWeapon).getmaxAmmo()){
-                        System.out.println("Your weapon already has the max ammo loaded!");
+                if (equippedWeapon instanceof RangedWeapon) {
+                    if (((RangedWeapon) equippedWeapon).getCurrentAmmo() == ((RangedWeapon) equippedWeapon).getmaxAmmo()) {
+                        adventure.giveMaxAmmoLoadedMessageFromUI();
                     } else {
                         playerReload();
-                        System.out.println("You reloaded your weapon!");
+                        adventure.giveReloadedWeaponMessageFromUI();
                     }
                 } else {
-                    System.out.println("Your weapon is a melee weapon, and can therefor not be reloaded!");
+                    adventure.givemeleeWeaponCantReloadMessageFromUI();
                 }
                 enemyAttacks(currentRoom.getEnemyInList());
             } else if (userCombatChoices.equals("flee")) {
@@ -356,94 +372,91 @@ public class Player {
         }
     }
 
-    public void displayEnemyAndPlayerHealth(){
-        System.out.println();
-        System.out.println(currentRoom.getEnemyInList().getName() + ": " + currentRoom.getEnemyInList().getHealth() + " || Player: " + health);
+    public void displayEnemyAndPlayerHealth() {
+        adventure.giveDisplayHealthFromUI(currentRoom.getEnemyInList().getName(), currentRoom.getEnemyInList().getHealth(), health);
     }
 
-    public void playerFleeAttempt(){
-        if(fleeAttempts > 0) {
+    public void playerFleeAttempt() {
+        if (fleeAttempts > 0) {
             Random random = new Random();
             int fleeAttempt = random.nextInt(0, 7);
             if (fleeAttempt != 3) {
-                System.out.println("You attempted to flee, but was unsuccesfull");
+                adventure.giveAttemptToFleeMessageFromUI();
                 this.fleeAttempts--;
                 enemyAttacks(currentRoom.getEnemyInList());
             } else {
-                System.out.println("You flee the battle");
+                adventure.giveFleeSuccessfullMessageFromUI();
                 setCombat();
             }
         } else {
-            System.out.println("You cannot attempt to flee anymore");
+            adventure.giveOutOfFleeAttemptsFromUI();
             enemyAttacks(currentRoom.getEnemyInList());
         }
     }
 
-    public void playerAttacksWithMelee(Enemy enemy){
+    public void playerAttacksWithMelee(Enemy enemy) {
         Random random = new Random();
-        int criticalStrikeChance = random.nextInt(1,10);
+        int criticalStrikeChance = random.nextInt(1, 10);
         int weaponDamage = random.nextInt(0, equippedWeapon.getDamage());
-        if(criticalStrikeChance > 8){
-            System.out.println("You attack with a critical strike!");
+        if (criticalStrikeChance > 8) {
+            adventure.givePlayerCriticalAttackMessageFromUI();
             weaponDamage = weaponDamage + (equippedWeapon.getDamage() / 2);
         }
-        if(weaponDamage == 0){
-            System.out.println("You missed the enemy");
+        if (weaponDamage == 0) {
+            adventure.givePlayerMissedMessageFromUI();
         } else {
-            System.out.println("You swing your sword with a damage value of: " + weaponDamage);
+            adventure.givePlayerNormalAttackMessageFromUI(weaponDamage, equippedWeapon.getName());
             enemy.enemyHealthDecrease(weaponDamage);
         }
     }
 
-    public void playerReload(){
-        ((RangedWeapon)equippedWeapon).reloadAmmo();
+    public void playerReload() {
+        ((RangedWeapon) equippedWeapon).reloadAmmo();
     }
 
-    public void playerAttacksWithRangeWeapon(Enemy enemy){
-        if(((RangedWeapon)equippedWeapon).getCurrentAmmo() != 0) {
+    public void playerAttacksWithRangeWeapon(Enemy enemy) {
+        if (((RangedWeapon) equippedWeapon).getCurrentAmmo() != 0) {
             Random random = new Random();
             int criticalStrikeChance = random.nextInt(1, 10);
             int weaponDamage = random.nextInt(0, equippedWeapon.getDamage());
             if (criticalStrikeChance > 8) {
-                System.out.println("You attack with a critical strike!");
+                adventure.givePlayerCriticalAttackMessageFromUI();
                 weaponDamage = weaponDamage + (equippedWeapon.getDamage() / 2);
             }
             if (weaponDamage == 0) {
-                System.out.println("Your shot missed the enemy");
+                adventure.givePlayerMissedRangedMessageFromUI();
                 ((RangedWeapon) equippedWeapon).useAmmo();
             } else {
-                System.out.println("You shoot with a damage value of: " + weaponDamage);
+                adventure.givePlayerNormalRangedAttackMessageFromUI(weaponDamage);
                 ((RangedWeapon) equippedWeapon).useAmmo();
                 enemy.enemyHealthDecrease(weaponDamage);
             }
         } else {
-            System.out.println("You need to reload your weapon!");
+            adventure.giveReloadMessageFromUI();
         }
     }
 
-    public void enemyAttacks(Enemy enemy){
-        if(enemy.getHealth() > 0){
+    public void enemyAttacks(Enemy enemy) {
+        if (enemy.getHealth() > 0) {
             try {
                 Thread.sleep(1000);
-            } catch(InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             Random random = new Random();
-            int criticalStrikeChance = random.nextInt(1,10);
+            int criticalStrikeChance = random.nextInt(1, 10);
             int enemyWeaponDamage = random.nextInt(0, enemy.getEnemyEquippedWeapon().getDamage());
-            if(criticalStrikeChance > 8){
-                System.out.println("Enemy attacks with a critical strike!");
+            if (criticalStrikeChance > 8) {
+                adventure.giveEnemyCriticalAttackMessageFromUI();
                 enemyWeaponDamage = enemyWeaponDamage + (enemy.getEnemyEquippedWeapon().getDamage() / 2);
             }
-            if(enemyWeaponDamage == 0){
-                System.out.println("You dodged the enemy's attack");
+            if (enemyWeaponDamage == 0) {
+                adventure.giveEnemyMissedAttackMessageFromUI();
             } else {
-                System.out.println();
-                System.out.println("The enemy attacks with a damage value of: " + enemyWeaponDamage);
+                adventure.giveEnemyNormalAttackMessageFromUI(enemyWeaponDamage);
                 playerHealthDecrese(enemyWeaponDamage);
             }
-        } else{
         }
     }
 }
