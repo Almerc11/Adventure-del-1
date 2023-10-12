@@ -60,6 +60,7 @@ public class UserInterface {
     public void takeItem(ArrayList<Item> listOfItems, String itemName){
         if(!listOfItems.isEmpty()){
             System.out.println("You took the " + itemName);
+            System.out.println();
         } else {
             System.out.println("There are no items left to take in this room.");
         }
@@ -120,18 +121,31 @@ public class UserInterface {
 
     public void help(){
         System.out.println("You can write the following commands: ");
+        System.out.println();
+        System.out.println("Direction guide:");
+        System.out.println();
+        System.out.println("Go south: Leads you the direction of south");
+        System.out.println("Go north: Leads you the direction of north");
+        System.out.println("Go west: Leads you the direction of west");
+        System.out.println("Go East: Leads you in the direction of East");
         System.out.println("Look: Looks for nearby doors.");
+        System.out.println();
+        System.out.println("Player options:");
+        System.out.println();
         System.out.println("Take: Takes an item from the inventory.");
         System.out.println("Drop: Drops one item from your inventory.");
         System.out.println("Show: Shows the items currently in your inventory.");
         System.out.println("Exit: Closes the game.");
+        System.out.println();
     }
+    //mangler flee,combat,health attack, reload, equip, eat
 
     public void userChoices( boolean enemiesInRoom){
         if(enemiesInRoom){
             System.out.println("Do you wish to initiate combat?");
         }
         System.out.println("What do you do?");
+
     }
     public void eatMessage(){
         System.out.println("What item would you like to eat?");
