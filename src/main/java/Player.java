@@ -294,8 +294,10 @@ public class Player {
         if(currentRoom.getWest() != null){
             adventure.getLookForWestFromUI();
         }
-    }
 
+
+
+            }
     public void combat(String userChoice) {
         if (userChoice.equals("combat")) {
             if(equippedWeapon != null) {

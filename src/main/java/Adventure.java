@@ -1,10 +1,14 @@
 import items.Item;
 
 import java.util.ArrayList;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Adventure {
     private UserInterface UI = new UserInterface();
     private Map map;
+    private Clip backgroundMusicClip;
     public Adventure() {
         map = new Map();
     }
@@ -14,6 +18,8 @@ public class Adventure {
         Player player = new Player(this);
         player.createCurrentRoom();
         boolean gameIsRunning = true;
+        //backGroundMusic("C:\\Users\\emila\\Intellij projects\\Adventure-del-1\\src\\main\\java\\music\\backGroundMusic.wav");
+        backGroundMusic("C:\\Users\\emila\\IntelliJ projects\\KEA\\Første Semester\\Adventure-del-1\\src\\main\\java\\music\\backGroundMusic.wav");
         while(gameIsRunning) {
             if(player.getCurrentRoom() == map.getRoom5()){
                 UI.giveEndMessage(player.getCurrentRoom().getDescription());
@@ -30,6 +36,19 @@ public class Adventure {
                 String userChoice = UI.setUserInput().toLowerCase();
                 player.playerChoices(this, userChoice);
             }
+        }
+    }
+
+    public void backGroundMusic(String musicFilePath){
+        try{
+            File audioFile = new File(musicFilePath);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+            backgroundMusicClip = AudioSystem.getClip();
+            backgroundMusicClip.open(audioInputStream);
+            backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
+            backgroundMusicClip.start();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e){
+            e.printStackTrace();
         }
     }
 
